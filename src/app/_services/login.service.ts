@@ -24,15 +24,16 @@ export class LoginService {
     params.append('username', loginData.username);
     params.append('password', loginData.password);
     params.append('grant_type', 'password');
-    params.append('client_id', 'fooClientIdPassword');
+    params.append('client_id', 'USER_CLIENT_APP');
 
     const headers = new Headers({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-    'Authorization': 'Basic ' + btoa('fooClientIdPassword:password') });
+    'Authorization': 'Basic ' + btoa('USER_CLIENT_APP:password') });
     const options = new RequestOptions({ headers: headers });
-    this._http.post('http://localhost:8081/healthyOauthServer/oauth/token', params.toString(), options)
+    this._http.post('http://localhost:8080/healthyOauthServer/oauth/token', params.toString(), options)
       .map(res => res.json())
       .subscribe(
         data => {
+          console.log('Data', data);
           this.saveToken(data);
         },
         err => alert('Invalid Credentials')
