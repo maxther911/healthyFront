@@ -1,7 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticationService {
@@ -10,7 +8,7 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.get<any>(this.servicsUrl)
-            .map(user => {
+            .pipe(user => {
                  return user;
             });
     }

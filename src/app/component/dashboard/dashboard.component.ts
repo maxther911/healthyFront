@@ -3,7 +3,6 @@ import { LoginService, UserService, AlertService } from './../../_services/index
 import { Component, OnInit } from '@angular/core';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
-import { _localeFactory } from '@angular/core/src/application_module';
 
 
 @Component({
@@ -24,7 +23,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this._login.checkCredentials();
-    this._uService.getResource()
+    /*this._uService.getResource()
       .subscribe(
         data => {
           this.credentials = data;
@@ -47,7 +46,7 @@ export class DashboardComponent implements OnInit {
             console.log(error);
             this._login.logout();
           }
-        });
+        });*/
   }
 
 }

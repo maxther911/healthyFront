@@ -5,10 +5,12 @@
 
 export const environment = {
   production: false,
-  authenticatedUri: 'http://localhost:8081/healthyOauthServer/',
+  authenticatedUri: 'http://localhost:8080/healthyOauthServer/',
+  clientDetailsURL : 'http://localhost:9001/healthyClientServer/',
   token: 'oauth/token',
-  userUri : 'http://localhost:9001/healthyClientServer/users/',
+  userUri : 'users/',
   extraMethod : 'extra/',
-  userByIdMethod: 'id/'
-
+  userByIdMethod: 'id/',
+  appConnect: 'USER_CLIENT_APP:password',
+  appId: 'USER_CLIENT_APP'
 };
