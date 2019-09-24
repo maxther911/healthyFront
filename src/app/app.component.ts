@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 
 import '../assets/app.css';
 
-
 @Component({
     moduleId: module.id.toString(),
     selector: 'app',
@@ -12,6 +11,5 @@ import '../assets/app.css';
 
 export class AppComponent {
     title = ':.:Healty';
-
 }
 

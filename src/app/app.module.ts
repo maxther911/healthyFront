@@ -19,6 +19,8 @@ import { FooterComponent } from './component/footer/index';
 import { DashboardComponent } from './component/dashboard/index';
 import {JwtInterceptor} from "./_helpers";
 
+import * as $ from "jquery";
+
 @NgModule({
     imports: [
         BrowserModule,

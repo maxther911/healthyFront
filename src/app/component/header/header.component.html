@@ -1,20 +1,30 @@
-<header class="page-topbar" id="header">
-  <nav>
-    <div class="nav-wrapper">
-      <a class="brand-logo">
-        Healthy
-      </a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a [routerLink]="['/home']">Home</a></li>
-        <li [hidden]="isActive">
-          <a [routerLink]="['/register']">Registrarse</a>
-        </li>
-        <li [hidden]="!isActive">
-          <a  (click)="clearSession()">Close</a>
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" [routerLink]="['/home']">Healthy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div *ngIf="_user.credentials" class="collapse navbar-collapse  nav justify-content-end" id="navbarSupportedContent">
+    <div class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto right hide-on-med-and-down">
+        <li class="nav-item dropdown">
+          <a *ngIf="_user.credentials; let data" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hi, {{data.data.name}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right center" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">
+                <span *ngIf="_user.credentials; let data">
+                  <p>{{data.data.name}} {{data.data.lastName}}</p>
+                </span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <button class="btn btn-primary align-middle center-align" (click)="clearSession()" type="submit">Salir
+            </button>
+          </div>
         </li>
       </ul>
     </div>
-
-
-  </nav>
-</header>
+  </div>
+</nav>

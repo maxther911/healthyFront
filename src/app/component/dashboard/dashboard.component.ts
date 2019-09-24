@@ -1,8 +1,8 @@
-import { Credentials, User, Data } from './../../_models/net/mrsistemas/index';
 import { LoginService, UserService, AlertService } from './../../_services/index';
 import { Component, OnInit } from '@angular/core';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
+import {Data, User} from "../../_models/net/mrsistemas";
 
 
 @Component({
@@ -13,13 +13,10 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private _uService: UserService,
+  constructor(
+    private _user: UserService,
     private _alert: AlertService,
     private _login: LoginService) { }
-
-  public credentials = new Credentials('', [''], false, 0, 0, [' ', '  ', ], ' ', ' ', ' ');
-  public user = new User(0, '', '', false, false, false, false, new Data(0, '', '', '', '', '', '', '', '', '' ));
-
 
   ngOnInit() {
     this._login.checkCredentials();

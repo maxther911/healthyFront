@@ -8,8 +8,6 @@ export class User {
     public credentialsNonExpired: boolean;
     public data: Data;
 
-
-
     constructor(
         id: number,
         username: string,

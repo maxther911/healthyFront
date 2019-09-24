@@ -3,17 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Cookie } from 'ng2-cookies';
 
-import { User, Data, Credentials } from '../_models/net/mrsistemas/index';
-import { Router } from '@angular/router';
-// tslint:disable-next-line:import-blacklist
+import { User, Data } from '../_models/net/mrsistemas/index';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-
-
 @Injectable()
 export class UserService {
-    public  credentials: User;
+    public  credentials: Observable<User>;
     constructor(private _http: HttpClient,
         private http: HttpClient) { }
 
