@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Cookie } from 'ng2-cookies';
 
-import { User, Usuario, Credentials } from '../_models/net/mrsistemas/index';
+import { User, Data, Credentials } from '../_models/net/mrsistemas/index';
 import { Router } from '@angular/router';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';

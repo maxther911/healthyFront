@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
     public model = {username: '', password: ''};
 
-    constructor(private _service: LoginService, private _alert: AlertService) {}
+    constructor(private _service: LoginService) {}
 
     login() {
         this._service.obtainAccessToken(this.model);

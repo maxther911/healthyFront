@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import {AlertService} from "./alert.service";
+import {Observable, of} from "rxjs";
+import {User} from "../models/user";
 
 export class Foo {
   constructor(
@@ -13,9 +16,11 @@ export class Foo {
 @Injectable()
 export class LoginService {
   private env = environment;
+  private  isLogin : boolean;
+  private user : Observable<User>;
 
   constructor(
-    private _router: Router, private _http: HttpClient) { }
+    private _router: Router, private _http: HttpClient, private _alert: AlertService ) { }
 
   obtainAccessToken(loginData: { username: any; password: any; }) {
     const params = new URLSearchParams();
@@ -37,6 +42,7 @@ export class LoginService {
           console.log('DataAuthenticated', data);
           console.log('name: ', data.id)
           this.saveToken(data);
+          this.isLogin = false;
 
           const httpAuthenticated = {
             headers: new HttpHeaders({
@@ -49,13 +55,15 @@ export class LoginService {
             .subscribe(
               (data : any) => {
                 console.log('DataUsers', data);
+                user =
               },
               error => {
                 console.log('Hay un error' ,error)
               })
         },
         error => {
-          alert('Invalid Credentials');
+          this._alert.error('Invalid Credentials', false);
+          this.isLogin = false;
           console.log('Hay un error' ,error)
         }
       );
@@ -112,5 +120,10 @@ export class LoginService {
   logout() {
     Cookie.delete('access_token');
     this._router.navigate(['/login']);
+  }
+
+  getSessionActive() : Observable<boolean>{
+    const myObservable = of(this.isLogin);
+    return  myObservable
   }
 }

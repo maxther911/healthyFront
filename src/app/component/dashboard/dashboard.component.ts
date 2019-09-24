@@ -1,4 +1,4 @@
-import { Credentials, User, Usuario } from './../../_models/net/mrsistemas/index';
+import { Credentials, User, Data } from './../../_models/net/mrsistemas/index';
 import { LoginService, UserService, AlertService } from './../../_services/index';
 import { Component, OnInit } from '@angular/core';
 // tslint:disable-next-line:import-blacklist
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
     private _login: LoginService) { }
 
   public credentials = new Credentials('', [''], false, 0, 0, [' ', '  ', ], ' ', ' ', ' ');
-  public user = new User(0, '', '', false, false, false, false, new Usuario(0, '', '', '', '', '', '', '', '', '' ));
+  public user = new User(0, '', '', false, false, false, false, new Data(0, '', '', '', '', '', '', '', '', '' ));
 
 
   ngOnInit() {

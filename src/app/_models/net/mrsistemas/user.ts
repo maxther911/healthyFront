@@ -1,13 +1,12 @@
-﻿import { Usuario } from './usuario';
+﻿import { Data } from './data';
 export class User {
     public id: number;
     public username: string;
-    public email: string;
     public enabled: boolean;
     public accountNonLocked: boolean;
     public accountNonExpired: boolean;
     public credentialsNonExpired: boolean;
-    public data: Usuario;
+    public data: Data;
 
 
 
@@ -19,7 +18,7 @@ export class User {
         accountNonLocked,
         accountNonExpired: boolean,
         credentialsNonExpired: boolean,
-        data: Usuario
+        data: Data
     ) {
         this.id = id;
         this.username = username;
@@ -27,8 +26,6 @@ export class User {
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
         this.data = data;
-
-
     }
 
 }

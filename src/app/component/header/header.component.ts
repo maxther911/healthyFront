@@ -1,6 +1,7 @@
 import { User } from './../../_models/net/mrsistemas/user';
-import { UserService } from './../../_services/index';
+import {LoginService, UserService} from './../../_services/index';
 import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs";
 
 @Component({
   moduleId: module.id.toString(),
@@ -9,14 +10,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public isActive: boolean;
+  public isActive: Observable<boolean>;
   public model: User;
 
-  constructor(private _user: UserService) { }
+  constructor(private _user: UserService, private _login : LoginService) { }
 
   ngOnInit() {
-    this.isActive = false;
+    this.isActive = this._login.getSessionActive();
     this.model = this._user.credentials;
+  }
+
+  clearSession() : void{
+    this._login.logout();
   }
 
 }

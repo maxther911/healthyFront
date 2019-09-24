@@ -9,6 +9,9 @@
         <li [hidden]="isActive">
           <a [routerLink]="['/register']">Registrarse</a>
         </li>
+        <li [hidden]="!isActive">
+          <a  (click)="clearSession()">Close</a>
+        </li>
       </ul>
     </div>
 
