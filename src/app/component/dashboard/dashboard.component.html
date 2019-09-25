@@ -1,3 +1,17 @@
-<div class="row">
-
+<div class="container" *ngIf="_user.credentials; let data">
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="assets/images/butterfly.png" class="card-img rounded-circle" alt="image not found, pealse verify">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{data.data.name}} {{data.data.lastName}}</h5>
+          <p class="card-text">{{data.data.email}}</p>
+          <p class="card-text">{{data.data.phone}} - <span>{{data.data.cellphone}}</span></p>
+          <button type="button" class="btn btn-light">Light</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -5,7 +5,6 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import {AlertService} from "./alert.service";
 import {Observable, of} from "rxjs";
-import {User} from "../models/user";
 import {UserService} from "./user.service";
 
 @Injectable()
@@ -33,8 +32,6 @@ export class LoginService {
     this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions)
       .subscribe(
         (data : any) => {
-          console.log('DataAuthenticated', data);
-          console.log('name: ', data.id)
           this.saveData(data);
           this.saveToken(data);
 
@@ -49,21 +46,20 @@ export class LoginService {
             .subscribe(
               (data : any) => {
                 this._user.credentials = data;
+                console.info(this._user.credentials)
               },
               error => {
-                console.log('Hay un error' ,error)
+                this._alert.error(error, false)
               })
         },
         error => {
           this._alert.error('Invalid Credentials', false);
-          console.log('Hay un error' ,error)
         }
       );
   }
 
   saveToken(token: { expires_in: number; access_token: string; }) {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
-    console.warn('Cookies Expire date: ',  new Date().getTime() + (1000 * 3 /*token.expires_in*/ ) )
     Cookie.set('access_token', token.access_token, expireDate);
     this._router.navigate(['/dashboard']);
   }
@@ -104,13 +100,16 @@ export class LoginService {
           'Authorization': 'Bearer ' + Cookie.get('access_token')
         })
       }
-      this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByIdMethod + Cookie.get('id'), httpAuthenticated)
+      this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByIdMethod + Cookie.get('data'), httpAuthenticated)
         .subscribe(
           (data : any) => {
             this._user.credentials = data;
           },
           error => {
-            console.log('Hay un error' ,error)
+            console.error(error);
+            this.logout();
+            this._alert.error('La session ha caducado', false);
+            this._router.navigate(['/login']);
           })
       this.isLogin = of(false);
       this._router.navigate(['/dashboard']);
@@ -130,6 +129,5 @@ export class LoginService {
     Cookie.delete('access_token');
     this._router.navigate(['/login']);
     this.isLogin = of(false);
-    console.log('Saliendo....', this.isLogin)
   }
 }

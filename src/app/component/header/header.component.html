@@ -13,15 +13,19 @@
              role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hi, {{data.data.name}}
           </a>
-          <div class="dropdown-menu dropdown-menu-right center" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">
-                <span *ngIf="_user.credentials; let data">
-                  <p>{{data.data.name}} {{data.data.lastName}}</p>
-                </span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <button class="btn btn-primary align-middle center-align" (click)="clearSession()" type="submit">Salir
-            </button>
+          <div class="dropdown-menu dropdown-menu-right center bg-transparent" aria-labelledby="navbarDropdown">
+            <div class="card center center-align center-block" style="width: 18rem;" >
+              <img src="assets/images/butterfly.png" class="card-img-top col-8 center-align" alt="Image Not Found" >
+              <div class="card-body">
+                <h5 class="card-title"><span *ngIf="_user.credentials; let data">
+                  <p>{{data.data.name}}</p>
+                </span></h5>
+                <p class="card-text"></p>
+                <div class="dropdown-divider"></div>
+                <button class="btn btn-primary align-middle center-align" (click)="clearSession()" type="submit">Salir
+                </button>
+              </div>
+            </div>
           </div>
         </li>
       </ul>
