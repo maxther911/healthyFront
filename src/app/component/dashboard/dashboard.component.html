@@ -1,4 +1,4 @@
-<div class="container" *ngIf="_user.credentials; let data">
+<div class="container-fluid" *ngIf="_user.credentials; let data">
   <div class="card mb-3" style="max-width: 540px;">
     <div class="row no-gutters">
       <div class="col-md-4">
@@ -9,7 +9,7 @@
           <h5 class="card-title">{{data.data.name}} {{data.data.lastName}}</h5>
           <p class="card-text">{{data.data.email}}</p>
           <p class="card-text">{{data.data.phone}} - <span>{{data.data.cellphone}}</span></p>
-          <button type="button" class="btn btn-light">Light</button>
+          <button type="button" class="btn btn-link">Link</button>
         </div>
       </div>
     </div>

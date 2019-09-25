@@ -1,30 +1,17 @@
 ﻿<div class="row center-align">
   <div class="col-md-6 col-md-offset-3">
     <h4>Login</h4>
-    <form class="text-justify" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-      <!--div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" id="username" [(ngModel)]="model.username" #username="ngModel" required />
-          <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" id="password" [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-      </div-->
-      <!--button [disabled]="loading" class="btn btn-primary">Login</button>
-      <button type="button" [routerLink]="['/register']" class="btn btn-link">Register</button-->
-
+    <form class="text-justify" name="loginForm" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
       <div class="form-group">
         <label for="username">Email address</label>
-        <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter username" [(ngModel)]="model.username" #username="ngModel" required>
-        <div *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required</div>
+        <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter username" [(ngModel)]="model.username" #username="ngModel" email required>
+        <small *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required or email is invalid.!</small>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" required>
-        <div *ngIf="f.submitted && !password.valid" class="help-block text-danger">Password is required</div>
+        <small *ngIf="f.submitted && !password.valid" class="help-block text-danger">Password is required</small>
       </div>
       <div class="center-align">
         <button type="submit" class="btn btn-primary">Submit</button>
