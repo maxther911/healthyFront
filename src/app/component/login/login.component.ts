@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, AuthenticationService, LoginService } from '../../_services/index';
+import {LoginService} from "../../_services";
 
 @Component({
     moduleId: module.id.toString(),
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
     public model = {username: '', password: ''};
 
-    constructor(private _service: LoginService) {}
+    constructor(private _service : LoginService) {}
 
     login() {
         this._service.obtainAccessToken(this.model);

@@ -1,6 +1,13 @@
 import {City} from "./index";
 
 export class Data {
+  get photo(): string {
+    return this._photo;
+  }
+
+  set photo(value: string) {
+    this._photo = value;
+  }
   private _id: number;
   private _dni: string;
   private _name: string;
@@ -12,6 +19,7 @@ export class Data {
   private _birthDate : Date;
   private _contact : Data;
   private _birth_city : City;
+  private _photo : string;
 
   constructor() {}
 
