@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import {LoginService} from "../../_services";
+
+import { LoginService } from '../../_services/index';
 
 @Component({
     moduleId: module.id.toString(),
@@ -8,9 +8,6 @@ import {LoginService} from "../../_services";
 })
 
 export class LoginComponent implements OnInit {
-    loading = false;
-    returnUrl: string;
-
     public model = {username: '', password: ''};
 
     constructor(private _service : LoginService) {}

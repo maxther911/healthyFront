@@ -50,7 +50,7 @@ export class UserService {
           'Authorization': 'Bearer ' + Cookie.get('access_token')
         })
       }
-        return this._http.get(environment.userUri + environment.userByIdMethod + id, httpOptions)
+        return this._http.get(environment.userUri + environment.userById + id, httpOptions)
         .subscribe((res: any) => {
             this.credentials = res.json();
         },

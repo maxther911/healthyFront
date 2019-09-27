@@ -10,7 +10,9 @@ export const environment = {
   token: 'oauth/token',
   userUri : 'users/',
   extraMethod : 'extra/',
-  userByIdMethod: 'id/',
+  userById: 'id/',
+  userByToken : 'getUserByToken',
   appConnect: 'USER_CLIENT_APP:password',
-  appId: 'USER_CLIENT_APP'
+  appId: 'USER_CLIENT_APP',
+  grandTypePassword: 'password'
 };

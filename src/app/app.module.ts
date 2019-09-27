@@ -1,7 +1,7 @@
 ﻿import { LoginService } from './_services/login.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {FormBuilder, FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -44,6 +44,7 @@ import * as $ from "jquery";
         AuthenticationService,
         UserService,
         LoginService,
+        FormBuilder,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: JwtInterceptor,
