@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 
 import '../assets/app.css';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     moduleId: module.id.toString(),
@@ -10,6 +11,7 @@ import '../assets/app.css';
 })
 
 export class AppComponent {
+  faCoffee = faCoffee;
     title = ':.:Healty';
 }
 

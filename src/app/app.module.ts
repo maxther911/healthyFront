@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormBuilder, FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -22,9 +23,11 @@ import {JwtInterceptor} from "./_helpers";
 import * as $ from "jquery";;
 import { TemperatureComponent } from './component/temperature/temperature.component'
 
+
 @NgModule({
     imports: [
         BrowserModule,
+      FontAwesomeModule,
         FormsModule,
         HttpClientModule,
         routing
