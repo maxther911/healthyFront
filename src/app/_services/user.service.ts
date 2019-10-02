@@ -23,7 +23,6 @@ export class UserService {
 
         return this._http.get(environment.userUri + environment.extraMethod , httpOptions)
           .subscribe((res: any) => {
-
               console.log('Respuesta data' + res.json());
             },
             (error: any) => {error.json().error || 'Server error'});
@@ -68,4 +67,14 @@ export class UserService {
     delete(id: number) {
         return this.http.delete('/api/users/' + id);
     }
+
+  getAuthenticated(): any {
+    const httpAuthenticated = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Authorization': 'Bearer ' + Cookie.get('access_token')
+      })
+    }
+    return httpAuthenticated;
+  }
 }

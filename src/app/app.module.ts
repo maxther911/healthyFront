@@ -10,7 +10,7 @@ import { routing } from './app.routing';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import {AlertService, AuthenticationService, SensorsService, UserService} from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './component/login/index';
 import { RegisterComponent } from './component/register/index';
@@ -19,7 +19,8 @@ import { FooterComponent } from './component/footer/index';
 import { DashboardComponent } from './component/dashboard/index';
 import {JwtInterceptor} from "./_helpers";
 
-import * as $ from "jquery";
+import * as $ from "jquery";;
+import { TemperatureComponent } from './component/temperature/temperature.component'
 
 @NgModule({
     imports: [
@@ -37,6 +38,8 @@ import * as $ from "jquery";
         HeaderComponent,
         FooterComponent,
         DashboardComponent
+,
+        TemperatureComponent
     ],
     providers: [
         AuthGuard,
@@ -44,6 +47,7 @@ import * as $ from "jquery";
         AuthenticationService,
         UserService,
         LoginService,
+        SensorsService,
         FormBuilder,
         {
             provide: HTTP_INTERCEPTORS,

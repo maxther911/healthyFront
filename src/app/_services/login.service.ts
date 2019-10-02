@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {AlertService} from "./alert.service";
 import {Observable, of} from "rxjs";
 import {UserService} from "./user.service";
+import {SensorsService} from "./sensors.service";
 
 @Injectable()
 export class LoginService {
@@ -13,7 +14,11 @@ export class LoginService {
   public isLogin: Observable<boolean> = of(false);
 
   constructor(
-    private _router: Router, private _http: HttpClient, private _alert: AlertService, private _user: UserService) {
+    private _router: Router,
+    private _http: HttpClient,
+    private _alert: AlertService,
+    private _user: UserService,
+    private _sensors: SensorsService) {
   }
 
   obtainAccessToken(loginData: { username: any; password: any; }) {
@@ -33,8 +38,7 @@ export class LoginService {
     this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions)
       .subscribe(
         (data: any) => {
-          this.saveToken(data);
-          this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this.getAuthenticated())
+          this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this._user.getAuthenticated())
             .subscribe(
               (data: any) => {
                 this._user.credentials = data;
@@ -42,7 +46,8 @@ export class LoginService {
               },
               error => {
                 this._alert.error(error, false)
-              })
+              });
+          this.saveToken(data);
         },
         error => {
           this._alert.error('Invalid Credentials', false);
@@ -87,26 +92,8 @@ export class LoginService {
     }
   }
 
-  isSession() {
-    if (!Cookie.check('access_token')) {
-      this._router.navigate(['/login']);
-    } else {
-      this._router.navigate(['/dashboard']);
-    }
-  }
-
-  getAuthenticated(): any {
-    const httpAuthenticated = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'Authorization': 'Bearer ' + Cookie.get('access_token')
-      })
-    }
-    return httpAuthenticated;
-  }
-
   getUserByToken(): void {
-    this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this.getAuthenticated())
+    this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this._user.getAuthenticated())
       .subscribe(
         (data: any) => {
           this._user.credentials = data;

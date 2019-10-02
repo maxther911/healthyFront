@@ -1,43 +1,5 @@
 <div class="container-fluid" *ngIf="_user.credentials; let data">
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="{{data.data.photo}}" class="card-img rounded-circle" alt="image not found, pealse verify">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{data.data.name}} {{data.data.lastName}}</h5>
-          <p class="card-text">{{data.data.email}}</p>
-          <p class="card-text">{{data.data.phone}} - <span>{{data.data.cellphone}}</span></p>
-          <button type="button" class="btn btn-link">Link</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="assets/images/office.jpg">
-    </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-      <p><a href="#">This is a link</a></p>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-      <p>Here is some more information about this product that is only revealed once clicked on.</p>
-    </div>
-  </div>
-
-  <div class="chartjs-size-monitor"
-       style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-    <div class="chartjs-size-monitor-expand"
-         style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-      <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
-    </div>
-    <div class="chartjs-size-monitor-shrink"
-         style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-      <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
-    </div>
+  <div *ngIf="_user.credentials">
+    <app-temperature></app-temperature>
   </div>
 </div>
