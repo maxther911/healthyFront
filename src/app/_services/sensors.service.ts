@@ -21,14 +21,11 @@ export class SensorsService {
   }
 
   getDataSensorsById() : void {
-    console.log(this._user.credentials)
-
     // @ts-ignore
     this._http.get(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + this._user.credentials.id/*, this._user.getAuthenticated()*/)
       .subscribe(
         (data: any) => {
           //this._user.credentials = data;
-          console.log(data);
         },
         error => {
           console.error(error);

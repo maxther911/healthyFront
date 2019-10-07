@@ -9,10 +9,12 @@ import { LoginService } from '../../_services/index';
 
 export class LoginComponent implements OnInit {
     public model = {username: '', password: ''};
+    public loading : boolean = true;
 
     constructor(private _service : LoginService) {}
 
     login() {
+      $('#myModal').modal('show');
         this._service.obtainAccessToken(this.model);
     }
 

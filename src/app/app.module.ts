@@ -12,7 +12,7 @@ import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 
 import {AlertService, AuthenticationService, SensorsService, UserService} from './_services/index';
-import { HomeComponent } from './home/index';
+import { HomeComponent } from './component/home/index';
 import { LoginComponent } from './component/login/index';
 import { RegisterComponent } from './component/register/index';
 import { HeaderComponent } from './component/header/index';
@@ -20,8 +20,12 @@ import { FooterComponent } from './component/footer/index';
 import { DashboardComponent } from './component/dashboard/index';
 import {JwtInterceptor} from "./_helpers";
 
-import * as $ from "jquery";;
+import * as $ from "jquery";
+import * as bootstrap from "bootstrap";
+
 import { TemperatureComponent } from './component/temperature/temperature.component'
+;
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component'
 
 
 @NgModule({
@@ -43,6 +47,8 @@ import { TemperatureComponent } from './component/temperature/temperature.compon
         DashboardComponent
 ,
         TemperatureComponent
+,
+        ForgotPasswordComponent
     ],
     providers: [
         AuthGuard,

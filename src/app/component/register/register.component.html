@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container-fluid">
     <!--div class="row">
         <h2>Register</h2>
     </div>
@@ -38,54 +38,55 @@
             </div>
         </form>
     </div-->
-  <div id="register-page" class="row">
-    <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 register-card bg-opacity-8">
-      <form class="login-form">
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="input-field col s12">
-            <h5 class="ml-4">Register</h5>
-            <p class="ml-4">Join to our community now !</p>
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+              </div>
+              <form class="user">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                  </div>
+                </div>
+                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                  Register Account
+                </a>
+              </form>
+              <hr>
+              <div class="text-center">
+                <a class="small" [routerLink]="['/forgot']">Forgot Password?</a>
+              </div>
+              <div class="text-center">
+                <a class="small" [routerLink]="['/login']">Already have an account? Login!</a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="material-icons prefix pt-2">person_outline</i>
-            <input id="username" type="text">
-            <label for="username" class="center-align">Username</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="material-icons prefix pt-2">mail_outline</i>
-            <input id="email" type="email">
-            <label for="email">Email</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="material-icons prefix pt-2">lock_outline</i>
-            <input id="password" type="password">
-            <label for="password">Password</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="material-icons prefix pt-2">lock_outline</i>
-            <input id="password-again" type="password">
-            <label for="password-again">Password again</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <a href="index.html" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Register</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <p class="margin medium-small"><a href="user-login.html">Already have an account? Login</a></p>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
+
   </div>
+
 </div>

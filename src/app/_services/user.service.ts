@@ -23,7 +23,7 @@ export class UserService {
 
         return this._http.get(environment.userUri + environment.extraMethod , httpOptions)
           .subscribe((res: any) => {
-              console.log('Respuesta data' + res.json());
+
             },
             (error: any) => {error.json().error || 'Server error'});
     }

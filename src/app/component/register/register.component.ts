@@ -32,7 +32,5 @@ export class RegisterComponent implements  OnInit{
                 });
     }
 
-  ngOnInit(): void {
-      this._login.checkCredentials();
-  }
+  ngOnInit(): void {}
 }

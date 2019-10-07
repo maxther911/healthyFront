@@ -42,7 +42,6 @@ export class LoginService {
             .subscribe(
               (data: any) => {
                 this._user.credentials = data;
-                console.info(this._user.credentials)
               },
               error => {
                 this._alert.error(error, false)
@@ -73,7 +72,7 @@ export class LoginService {
     return this._http.get(resourceUrl, httpOptions)
       .subscribe(
         (res: Response) => {
-          console.log(res.json());
+
         },
         error => {
           console.log('Error', error)
