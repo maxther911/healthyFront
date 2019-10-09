@@ -78,7 +78,7 @@ export class TemperatureComponent implements OnInit {
         chart.render();
         setTimeout(function () {
           updateChart()
-        }, 2000);
+        }, 5000);
       });
     }
 

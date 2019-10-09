@@ -21,7 +21,7 @@ export class LoginService {
     private _sensors: SensorsService) {
   }
 
-  obtainAccessToken(loginData: { username: any; password: any; }) {
+  obtainAccessToken(loginData: { username: any; password: any; }) : Observable<any> {
     const params = new URLSearchParams();
     params.append('username', loginData.username);
     params.append('password', loginData.password);
@@ -35,28 +35,13 @@ export class LoginService {
       })
     };
 
-    this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions)
-      .subscribe(
-        (data: any) => {
-          this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this._user.getAuthenticated())
-            .subscribe(
-              (data: any) => {
-                this._user.credentials = data;
-              },
-              error => {
-                this._alert.error(error, false)
-              });
-          this.saveToken(data);
-        },
-        error => {
-          this._alert.error('Invalid Credentials', false);
-        }
-      );
+    return this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions);
   }
 
   saveToken(token: { expires_in: number; access_token: string; }) {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
     Cookie.set('access_token', token.access_token, expireDate);
+
     this._router.navigate(['/dashboard']);
   }
 
@@ -83,10 +68,8 @@ export class LoginService {
   checkCredentials() {
     if (!Cookie.check('access_token')) {
       this._router.navigate(['/login']);
-      this.isLogin = of(true);
     } else {
       this.getUserByToken();
-      this.isLogin = of(false);
       this._router.navigate(['/dashboard']);
     }
   }
