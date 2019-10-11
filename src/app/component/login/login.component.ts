@@ -24,10 +24,11 @@ export class LoginComponent implements OnInit {
         this._login.obtainAccessToken(this.model)
           .subscribe(
             (data: any) => {
-              this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this._user.getAuthenticated())
+              localStorage.setItem('currentUser', JSON.stringify(data))
+              this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken)
                 .subscribe(
                   (data: any) => {
-                    console.log("Login Component 30" , data)
+                    localStorage.setItem('dataUser', JSON.stringify(data))
                     this._user.credentials = data;
                   },
                   error => {

@@ -11,6 +11,7 @@ import {SensorsService} from "./sensors.service";
 @Injectable()
 export class LoginService {
   private env = environment;
+
   public isLogin: Observable<boolean> = of(false);
 
   constructor(
@@ -28,14 +29,7 @@ export class LoginService {
     params.append('grant_type', this.env.grandTypePassword);
     params.append('client_id', this.env.appId);
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'Authorization': 'Basic ' + btoa(this.env.appConnect)
-      })
-    };
-
-    return this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions);
+    return this._http.post(this.env.authenticatedUri + this.env.token, params.toString());
   }
 
   saveToken(token: { expires_in: number; access_token: string; }) {
@@ -46,15 +40,8 @@ export class LoginService {
   }
 
   getResource(resourceUrl: string) {
-    // tslint:disable-next-line:max-line-length
-    //const headers = new Headers({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer ' + Cookie.get('access_token') });
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'Authorization': 'Bearer ' + Cookie.get('access_token')
-      })
-    };
-    return this._http.get(resourceUrl, httpOptions)
+
+    return this._http.get(resourceUrl)
       .subscribe(
         (res: Response) => {
 
@@ -69,13 +56,12 @@ export class LoginService {
     if (!Cookie.check('access_token')) {
       this._router.navigate(['/login']);
     } else {
-      this.getUserByToken();
       this._router.navigate(['/dashboard']);
     }
   }
 
   getUserByToken(): void {
-    this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this._user.getAuthenticated())
+    this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken)
       .subscribe(
         (data: any) => {
           this._user.credentials = data;
@@ -90,6 +76,7 @@ export class LoginService {
 
   logout() {
     this._user.credentials = null;
+    localStorage.clear();
     Cookie.delete('access_token');
     this._router.navigate(['/login']);
   }

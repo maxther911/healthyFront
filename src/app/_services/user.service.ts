@@ -67,14 +67,4 @@ export class UserService {
     delete(id: number) {
         return this.http.delete('/api/users/' + id);
     }
-
-  getAuthenticated(): any {
-    const httpAuthenticated = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'Authorization': 'Bearer ' + Cookie.get('access_token')
-      })
-    }
-    return httpAuthenticated;
-  }
 }

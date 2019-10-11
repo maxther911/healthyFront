@@ -9,7 +9,6 @@
 
 <div class="container">
 
-
   <div class="row justify-content-center">
 
     <div class="col-xl-10 col-lg-12 col-md-9">
@@ -27,12 +26,9 @@
                 <form class="user" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                   <div class="form-group">
                     <!--input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."-->
-                    <input type="email" class="form-control form-control-user" id="username" name="username"
-                           aria-describedby="emailHelp" placeholder="Enter username or email..."
-                           [(ngModel)]="model.username" #username="ngModel" email required>
-                    <div *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required or
-                      email is
-                      invalid
+                    <i class="material-icons md-36">face</i>
+                    <input type="email" class="form-control form-control-user" id="username" name="username"  aria-describedby="emailHelp" placeholder="Enter username or email..." [(ngModel)]="model.username" #username="ngModel" email required>
+                    <div *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required oremail is invalid
                     </div>
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                       else.</small>

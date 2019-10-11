@@ -1,5 +1,10 @@
-<div class="container-fluid" *ngIf="_user.credentials; let data">
-  <div *ngIf="_user.credentials">
+<div class="container-fluid">
+  <div *ngIf="_user.credentials; else loading">
     <app-temperature></app-temperature>
   </div>
+  <ng-template #loading>
+    <div>
+      <img class="" src="../assets/images/loading.gif" alt="cargando...." width="100%" height="100%"/>
+    </div>
+  </ng-template>
 </div>
