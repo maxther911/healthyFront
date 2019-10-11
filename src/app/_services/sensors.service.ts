@@ -26,6 +26,7 @@ export class SensorsService {
       .subscribe(
         (data: any) => {
           //this._user.credentials = data;
+          console.info("Sensors Service 29: ", data)
         },
         error => {
           console.error(error);

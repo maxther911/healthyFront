@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
               this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.userByToken, this._user.getAuthenticated())
                 .subscribe(
                   (data: any) => {
+                    console.log("Login Component 30" , data)
                     this._user.credentials = data;
                   },
                   error => {
