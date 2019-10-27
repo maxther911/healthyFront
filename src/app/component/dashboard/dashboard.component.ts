@@ -21,5 +21,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this._login.checkCredentials();
+    this._user.checkTokenValidity();
   }
 }

@@ -19,50 +19,50 @@ import { HeaderComponent } from './component/header/index';
 import { FooterComponent } from './component/footer/index';
 import { DashboardComponent } from './component/dashboard/index';
 import {JwtInterceptor} from "./_helpers";
-
+import { TemperatureComponent } from './component/temperature/temperature.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { CreateAppComponent } from './component/create-app/create-app.component';
 import * as $ from "jquery";
-import * as bootstrap from "bootstrap";
-
-import { TemperatureComponent } from './component/temperature/temperature.component'
-;
-import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component'
-
+import * as bootstrap from "bootstrap";;
+import { ErrorComponent } from './component/error/error.component'
 
 @NgModule({
     imports: [
-        BrowserModule,
+      BrowserModule,
       FontAwesomeModule,
-        FormsModule,
-        HttpClientModule,
-        routing
+      FormsModule,
+      HttpClientModule,
+      routing
     ],
     declarations: [
-        AppComponent,
-        AlertComponent,
-        HomeComponent,
-        LoginComponent,
-        RegisterComponent,
-        HeaderComponent,
-        FooterComponent,
-        DashboardComponent
-,
-        TemperatureComponent
-,
-        ForgotPasswordComponent
+      AppComponent,
+      AlertComponent,
+      HomeComponent,
+      LoginComponent,
+      RegisterComponent,
+      HeaderComponent,
+      FooterComponent,
+      DashboardComponent,
+      TemperatureComponent,
+      ForgotPasswordComponent,
+      ProfileComponent,
+      CreateAppComponent,
+      ErrorComponent
     ],
-    providers: [
-        AuthGuard,
-        AlertService,
-        AuthenticationService,
-        UserService,
-        LoginService,
-        SensorsService,
-        FormBuilder,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: JwtInterceptor,
-            multi: true
-        }
+  providers: [
+      AuthGuard,
+      AlertService,
+      AuthenticationService,
+      UserService,
+      LoginService,
+      SensorsService,
+      FormBuilder,
+      {
+          provide: HTTP_INTERCEPTORS,
+          useClass: JwtInterceptor,
+          multi: true,
+      }
     ],
     bootstrap: [AppComponent]
 })

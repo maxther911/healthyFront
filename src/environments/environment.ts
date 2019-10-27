@@ -9,6 +9,7 @@ export const environment = {
   clientDetailsURL : 'http://localhost:9001/healthyClientServer/',
   sensorsDataUrl :  'http://localhost:9002/healthyDataService/',
   token: 'oauth/token',
+  checkToken : 'oauth/check_token',
   userUri : 'users/',
   extraMethod : 'extra/',
   userById: 'id/',

@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { User } from '../../_models/net/mrsistemas';
-import { UserService } from '../../_services';
+import {AlertService, LoginService, UserService} from '../../_services';
+import {LoginComponent} from "../login";
 
 @Component({
     moduleId: module.id.toString(),
@@ -12,16 +13,18 @@ export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
 
-    constructor(private userService: UserService) {
-       // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    constructor(private _user: UserService, private _login : LoginService) {
+       //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+      this._login.checkCredentials();
+      console.info('home', this._user.credentials);
+
     }
 
     deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers(); });
+        this._user.delete(id).subscribe(() => { this.loadAllUsers(); });
     }
 
     private loadAllUsers() {

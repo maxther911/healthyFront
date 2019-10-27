@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {SensorsService} from "../../_services";
+import {Component, OnInit} from '@angular/core';
+import {SensorsService, UserService} from "../../_services";
 import * as $ from 'jquery';
 import * as CanvasJS from '../../../assets/js/canvasjs.min.js';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-temperature',
@@ -9,49 +10,39 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min.js';
   styleUrls: ['./temperature.component.css']
 })
 export class TemperatureComponent implements OnInit {
+  private env = environment;
+  temp : number = 0;
 
-  constructor(private _sensors: SensorsService) {
+  constructor(private _sensors: SensorsService, private _user: UserService) {
   }
 
   ngOnInit() {
     this._sensors.getDataSensorsById();
     let dataPoints = [];
+    let dataTempsPoints = [];
     let dpsLength = 0;
+    let tempIndex = 0;
+    let y = 0;
+    if (this._sensors.dataSensors && this._sensors.dataSensors.length > 0) {
+
+    }
+
     let chart = new CanvasJS.Chart("chartContainer", {
       exportEnabled: true,
-      title: {
-        text: ""
-      },
       data: [{
         type: "spline",
         dataPoints: dataPoints,
       }]
     });
 
-    var pieChart = new CanvasJS.Chart("pieChartContainer", {
-      animationEnabled: true,
-      title:{
-        text: "Email Categories",
-        horizontalAlign: "left"
-      },
+    let chartTemp = new CanvasJS.Chart("chartTempContainer", {
+      exportEnabled: true,
       data: [{
-        type: "doughnut",
-        startAngle: 60,
-        //innerRadius: 60,
-        indexLabelFontSize: 17,
-        indexLabel: "{label} - #percent%",
-        toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-        dataPoints: [
-          { y: 67, label: "Inbox" },
-          { y: 28, label: "Archives" },
-          { y: 10, label: "Labels" },
-          { y: 7, label: "Drafts"},
-          { y: 15, label: "Trash"},
-          { y: 6, label: "Spam"}
-        ]
+        type: "spline",
+        dataPoints: dataTempsPoints,
       }]
     });
-    pieChart.render();
+
 
     $.getJSON("https://canvasjs.com/services/data/datapoints.php?xstart=1&ystart=25&length=20&type=json&callback=?", function (data) {
       $.each(data, function (key, value) {
@@ -63,6 +54,7 @@ export class TemperatureComponent implements OnInit {
     });
 
     function updateChart() {
+
       $.getJSON("https://canvasjs.com/services/data/datapoints.php?xstart=" + (dpsLength + 1) + "&ystart=" + (dataPoints[dataPoints.length - 1].y) + "&length=1&type=json&callback=?", function (data) {
         $.each(data, function (key, value) {
           dataPoints.push({
@@ -82,5 +74,43 @@ export class TemperatureComponent implements OnInit {
       });
     }
 
+    // @ts-ignore
+    $.getJSON(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + this._user.credentials.id, function (data) {
+      $.each(data, function (key, value) {
+        $.each(value.quantities, function (index, value) {
+          tempIndex = tempIndex +1;
+          dataTempsPoints.push({
+            x: tempIndex,
+            y: value.value
+          });
+          dpsLength++;
+        });
+      });
+      chartTemp.render();
+    });
+
+    var pieChart = new CanvasJS.Chart("pieChartContainer", {
+      animationEnabled: true,
+      data: [{
+        type: "doughnut",
+        startAngle: 60,
+        //innerRadius: 60,
+        indexLabelFontSize: 17,
+        indexLabel: "{label} - #percent%",
+        toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+        dataPoints: [
+          {y: 67, label: "HTA"},
+          {y: 28, label: "Infarto"},
+          {y: 10, label: "TEP"},
+          {y: 7, label: "Normal"},
+          {y: 15, label: "Trash"},
+          {y: 6, label: "Spam"}
+        ],
+        click: function(e){
+          window.location.replace("/data");
+        },
+      }]
+    });
+    pieChart.render();
   }
 }

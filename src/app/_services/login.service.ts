@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {AlertService} from "./alert.service";
 import {Observable, of} from "rxjs";
@@ -22,7 +22,7 @@ export class LoginService {
     private _sensors: SensorsService) {
   }
 
-  obtainAccessToken(loginData: { username: any; password: any; }) : Observable<any> {
+  obtainAccessToken(loginData: { username: any; password: any; }): Observable<any> {
     const params = new URLSearchParams();
     params.append('username', loginData.username);
     params.append('password', loginData.password);
@@ -35,7 +35,7 @@ export class LoginService {
   saveToken(token: { expires_in: number; access_token: string; }) {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
     Cookie.set('access_token', token.access_token, expireDate);
-
+    console.info('save token', token)
     this._router.navigate(['/dashboard']);
   }
 
@@ -47,16 +47,17 @@ export class LoginService {
 
         },
         error => {
-          console.log('Error', error)
+          console.error('Error', error)
         }
       )
   }
 
   checkCredentials() {
-    if (!Cookie.check('access_token')) {
+    if (!localStorage.getItem('currentUser')) {
       this._router.navigate(['/login']);
     } else {
-      this._router.navigate(['/dashboard']);
+        this._user.credentials = JSON.parse(localStorage.getItem('dataUser'));
+        this._router.navigate(['/dashboard']);
     }
   }
 

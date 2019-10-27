@@ -1,70 +1,87 @@
-﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+﻿import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies';
 
-import { User, Data } from '../_models/net/mrsistemas/index';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import {User, Data} from '../_models/net/mrsistemas/index';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class UserService {
-    public  credentials: Observable<User>;
-    constructor(private _http: HttpClient,
-        private http: HttpClient) { }
+  public credentials: Observable<User>;
+  private env = environment;
 
-    getAll() {
-        const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-          'Authorization': 'Bearer ' + Cookie.get('access_token')
-        })
-      }
+  constructor(private _http: HttpClient, private http: HttpClient) {}
 
-        return this._http.get(environment.userUri + environment.extraMethod , httpOptions)
-          .subscribe((res: any) => {
+  getAll() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Authorization': 'Bearer ' + Cookie.get('access_token')
+      })
+    };
 
-            },
-            (error: any) => {error.json().error || 'Server error'});
-    }
+    return this._http.get(environment.userUri + environment.extraMethod, httpOptions)
+      .subscribe((res: any) => {
 
-    getResource() {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-          'Authorization': 'Bearer ' + Cookie.get('access_token')
-        })
-      }
-
-        return this._http.get(environment.userUri + environment.extraMethod, httpOptions)
-        .subscribe((res: Response) => {
-          return res.json()
-          }, (error: any) => {console.log('error' , error)});
-      }
-
-    getById(id: number) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-          'Authorization': 'Bearer ' + Cookie.get('access_token')
-        })
-      }
-        return this._http.get(environment.userUri + environment.userById + id, httpOptions)
-        .subscribe((res: any) => {
-            this.credentials = res.json();
         },
-          (error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
+        (error: any) => {
+          error.json().error || 'Server error'
+        });
+  }
 
-    create(user: User) {
-        return this.http.post('/api/users', user);
-    }
+  getResource() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Authorization': 'Bearer ' + Cookie.get('access_token')
+      })
+    };
 
-    update(user: User) {
-        return this.http.put('/api/users/' + user.id, user);
-    }
+    return this._http.get(environment.userUri + environment.extraMethod, httpOptions)
+      .subscribe((res: Response) => {
+        return res.json()
+      }, (error: any) => {
+        console.error('error', error)
+      });
+  }
 
-    delete(id: number) {
-        return this.http.delete('/api/users/' + id);
-    }
+  getById(id: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Authorization': 'Bearer ' + Cookie.get('access_token')
+      })
+    };
+    return this._http.get(environment.userUri + environment.userById + id, httpOptions)
+      .subscribe((res: any) => {
+          this.credentials = res.json();
+        },
+        (error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  create(user: User) {
+    return this.http.post('/healthyClientServer/NonUser/create', user);
+  }
+
+  update(user: User) {
+    return this.http.put('/api/users/' + user.id, user);
+  }
+
+  delete(id: number) {
+    return this.http.delete('/api/users/' + id);
+  }
+
+  checkTokenValidity() : boolean{
+    this._http.get(this.env.authenticatedUri + this.env.checkToken)
+      .subscribe((res: Response) => {
+        console.log(res);
+        return true;
+      }, (error: any) => {
+        console.error('error', error);
+        return false;
+      });
+    return false;
+  }
 }

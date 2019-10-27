@@ -2,6 +2,7 @@
 export class User {
     public id: number;
     public username: string;
+    public password: string;
     public enabled: boolean;
     public accountNonLocked: boolean;
     public accountNonExpired: boolean;

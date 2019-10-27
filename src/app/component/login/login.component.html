@@ -25,13 +25,9 @@
                 </div>
                 <form class="user" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                   <div class="form-group">
-                    <!--input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."-->
-                    <i class="material-icons md-36">face</i>
                     <input type="email" class="form-control form-control-user" id="username" name="username"  aria-describedby="emailHelp" placeholder="Enter username or email..." [(ngModel)]="model.username" #username="ngModel" email required>
-                    <div *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required oremail is invalid
-                    </div>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                      else.</small>
+                    <div *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required or email is invalid</div>
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                   </div>
                   <div class="form-group">
                     <input class="form-control form-control-user" type="password" id="password" name="password"

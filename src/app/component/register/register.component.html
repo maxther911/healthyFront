@@ -1,7 +1,6 @@
 ﻿<div class="container-fluid">
   <div class="container">
-
-    <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card o-hidden border-0 shadow-lg my-2">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
@@ -10,83 +9,84 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <form class="user">
+              <form class="user" (ngSubmit)="f.form.valid && create()" #f="ngForm" novalidate>
 
                 <div class="form-group group">
-                  <input type="text" class="form-control form-control-user" id="userDni" required>
-                  <label class="ml-3">Dni</label>
+                  <input type="text" class="form-control form-control-user" id="userDni" [(ngModel)]="user.data.dni" required>
+                  <label class="ml-3 bg-white pr-5">Dni</label>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="userFirstName" required>
-                    <i class="material-icons prefix">textsms</i>
+                    <input type="text" class="form-control form-control-user" id="userFirstName" [(ngModel)]="user.data.name" required>
                     <label class="ml-3">First Name</label>
                   </div>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="userLastName" placeholder="Last Name">
+                    <input type="text" class="form-control form-control-user" id="userLastName" [(ngModel)]="user.data.lastName" required>
+                    <label class="ml-3">LastName</label>
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="userEmail" placeholder="Email Address">
+                <div class="form-group group">
+                  <input type="email" class="form-control form-control-user" id="userEmail" [(ngModel)]="user.data.email" required>
+                  <label class="ml-3">Email Address</label>
                 </div>
 
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="userAddres" placeholder="Address">
+                <div class="form-group group">
+                  <input type="text" class="form-control form-control-user" id="userAddres" [(ngModel)]="user.data.address" required>
+                  <label class="ml-3">Address</label>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="userPhone" placeholder="Phone Number">
+                    <input type="text" class="form-control form-control-user" id="userPhone" [(ngModel)]="user.data.phone" required>
+                    <label class="ml-3">Phone Number</label>
                   </div>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="userCellphone" placeholder="CellPhone Number">
+                    <input type="text" class="form-control form-control-user" id="userCellphone" [(ngModel)]="user.data.cellphone" required>
+                    <label class="ml-3">CellPhone Number</label>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-4 mb-3 mb-sm-0">
-                    <input type="date" class="form-control form-control-user" id="userBirthDate" placeholder="BirthDate">
+                    <input type="date" class="form-control form-control-user" id="userBirthDate" [(ngModel)]="user.data.birthDate" required>
+                    <label class="ml-3">BirthDate</label>
                   </div>
 
                   <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-user" id="userBirthCity" placeholder="Birth City">
+                    <input type="text" class="form-control form-control-user" id="userBirthCountry" required>
+                    <label class="ml-3">Country of birth</label>
                   </div>
 
                   <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-user" id="userBirthCountry" placeholder="Birth Country">
+                    <input type="text" class="form-control form-control-user" id="userBirthCity" [(ngModel)]="user.data.birth_city" required>
+                    <label class="ml-3">place of birth</label>
                   </div>
+
                 </div>
 
-                <div class="form-group row">
-                  <div class="col-sm-4 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="userLatitude" placeholder="Latitude">
-                  </div>
-
-                  <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-user" id="userLongitude" placeholder="Longitude">
-                  </div>
-
-                  <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-user" id="userAltitude" placeholder="Altitude">
-                  </div>
-                </div>
-
-                <div class="form-group row">
-
-                  <div class="col-sm-4 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="userNamePassword" placeholder="UserName">
+                <div class="form-group row bg-gradient-info pt-2 pb-2 rounded-lg">
+                  <div class="text-center col-12">
+                    <h1 class="h4 text-gray-900 mb-4 text-white">UserName and Password</h1>
                   </div>
 
                   <div class="col-sm-4 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="userInputPassword" placeholder="Password">
+                    <input type="email" class="form-control form-control-user" id="username" name="username" [(ngModel)]="user.username" required #username="ngModel" email required>
+                    <div *ngIf="f.submitted && !username.valid" class="help-block text-danger">Username is required or email is invalid</div>
+                    <label class="ml-3">Username</label>
+                  </div>
+
+                  <div class="col-sm-4 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" id="userInputPassword" [(ngModel)]="user.password" required>
+                    <label class="ml-3">Password</label>
                   </div>
 
                   <div class="col-sm-4">
-                    <input type="password" class="form-control form-control-user" id="userRepeatPassword" placeholder="Repeat Password">
+                    <input type="password" class="form-control form-control-user" id="userRepeatPassword" required>
+                    <label class="ml-3">Repeat Password</label>
                   </div>
 
                 </div>

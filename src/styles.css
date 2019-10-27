@@ -7598,7 +7598,6 @@ pre code {
   color: #6e707e;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #d1d3e2;
   border-radius: .35rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
@@ -7615,11 +7614,8 @@ pre code {
 }
 
 .form-control:focus {
-  color: #6e707e;
-  background-color: #fff;
-  border-color: #bac8f3;
+  /*color: #6e707e;*/
   outline: 0;
-  box-shadow: 0 0 0 .2rem rgba(78, 115, 223, .25)
 }
 
 .form-control::-webkit-input-placeholder {
@@ -16555,7 +16551,29 @@ form.user .custom-checkbox.small label {
 
 form.user .form-control-user {
   font-size: .8rem;
-  border-radius: 10rem;
+  border-radius: 7rem;
+  border: none;
+  border-top-color: initial;
+  border-top-style: none;
+  border-top-width: initial;
+  border-right-color: initial;
+  border-right-style: none;
+  border-right-width: initial;
+  border-bottom-color: rgb(117, 117, 117);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: initial;
+  border-left-style: none;
+  border-left-width: initial;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  border-bottom: 1px solid #757575;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(117, 117, 117);
   padding: 1.5rem 1rem
 }
 
@@ -16982,7 +17000,7 @@ label {
 
 /* active state */
 input:focus ~ label, input:valid ~ label {
-  top: -20px;
+  top: -15px;
   font-size: .8rem;
   color: #5264AE;
 }
@@ -17030,3 +17048,31 @@ input:focus .highlight {
     font-size: smaller;
   }
 }
+
+/*  Efectt Loading*/
+.spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1003;
+  background: #000000;
+  overflow: hidden;
+}
+
+.spinner div:first-child {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  box-shadow: 0 3px 3px 0 #ff3d71;
+  transform: translate3d(0, 0, 0);
+  animation: spin 2s linear infinite;
+}
+
+

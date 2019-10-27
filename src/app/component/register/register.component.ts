@@ -2,6 +2,7 @@
 import { Router } from '@angular/router';
 
 import {AlertService, LoginService, UserService} from '../../_services/index';
+import {User} from "../../_models/net/mrsistemas";
 
 @Component({
     moduleId: module.id.toString(),
@@ -9,8 +10,8 @@ import {AlertService, LoginService, UserService} from '../../_services/index';
 })
 
 export class RegisterComponent implements  OnInit{
-    model: any = {};
     loading = false;
+    user: User;
 
     constructor(
         private router: Router,
@@ -18,9 +19,9 @@ export class RegisterComponent implements  OnInit{
         private _login: LoginService,
         private alertService: AlertService) { }
 
-    register() {
+  create() {
         this.loading = true;
-        this.userService.create(this.model)
+        this.userService.create(this.user)
             .subscribe(
                 data => {
                     this.alertService.success('Registration successful', true);
