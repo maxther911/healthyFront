@@ -5,9 +5,9 @@
 
 export const environment = {
   production: false,
-  authenticatedUri: 'http://18.191.110.188:8080/HealthyOauthServer-0.0.1-SNAPSHOT',
-  clientDetailsURL : 'http://18.191.110.188:8080/healthyUserService/',
-  sensorsDataUrl :  'http://18.191.110.188:8080/healthyDataService/',
+  authenticatedUri: 'http://localhost:8080/healthyOauthServer/',
+  clientDetailsURL : 'http://localhost:9001/healthyClientServer/',
+  sensorsDataUrl :  'http://localhost:9002/healthyDataService/',
   token: 'oauth/token',
   checkToken : 'oauth/check_token',
   userUri : 'users/',
