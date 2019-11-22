@@ -26,7 +26,8 @@ import { CreateAppComponent } from './component/create-app/create-app.component'
 import * as $ from "jquery";
 import * as bootstrap from "bootstrap";;
 import { ErrorComponent } from './component/error/error.component'
-
+;
+import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component'
 @NgModule({
     imports: [
       BrowserModule,
@@ -49,7 +50,8 @@ import { ErrorComponent } from './component/error/error.component'
       ProfileComponent,
       CreateAppComponent,
       ErrorComponent
-    ],
+,
+      AdminDashboardComponent    ],
   providers: [
       AuthGuard,
       AlertService,
