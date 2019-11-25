@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../_models/net/mrsistemas';
+import { User } from '../../_models';
 import {AlertService, LoginService, UserService} from '../../_services';
 import {LoginComponent} from "../login";
 

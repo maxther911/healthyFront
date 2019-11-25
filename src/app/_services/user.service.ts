@@ -3,9 +3,10 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Cookie} from 'ng2-cookies';
 
-import {User, Data} from '../_models/net/mrsistemas/index';
+import {User} from '../_models/index';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
+
 
 @Injectable()
 export class UserService {

@@ -6,8 +6,7 @@ import {environment} from '../../environments/environment';
 import {AlertService} from "./alert.service";
 import {Observable, of} from "rxjs";
 import {UserService} from "./user.service";
-import {User} from "../_models/net/mrsistemas";
-import {map} from "rxjs/operators";
+import {User} from "../_models/index";
 import DataSensors = SensorsData.DataSensors;
 
 

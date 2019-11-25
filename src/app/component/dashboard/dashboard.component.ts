@@ -1,8 +1,7 @@
 import {LoginService, UserService, AlertService, SensorsService} from './../../_services/index';
-import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 // tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs';
-import {Data, User} from "../../_models/net/mrsistemas";
+
 
 
 @Component({
@@ -15,9 +14,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private _user: UserService,
-    private _alert: AlertService,
-    private _login: LoginService,
-    private _sensors : SensorsService) { }
+    private _login: LoginService) { }
 
   ngOnInit() {
     this._login.checkCredentials();
