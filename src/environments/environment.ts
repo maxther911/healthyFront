@@ -16,6 +16,8 @@ export const environment = {
   userByToken : 'getUserByToken',
   third: 'third/',
   sensors: 'sensors/',
+  country: 'country/',
+  getCountryLikeByName : 'getCountryByName/',
   getInformationById: 'getInformationById/',
   appConnect: 'USER_CLIENT_APP:password',
   appId: 'USER_CLIENT_APP',

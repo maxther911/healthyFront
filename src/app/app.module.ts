@@ -11,7 +11,7 @@ import { routing } from './app.routing';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 
-import {AlertService, AuthenticationService, SensorsService, UserService} from './_services/index';
+import {AlertService, AuthenticationService, SensorsService, UserService, CountryService} from './_services/index';
 import { HomeComponent } from './component/home/index';
 import { LoginComponent } from './component/login/index';
 import { RegisterComponent } from './component/register/index';
@@ -59,6 +59,7 @@ import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashb
       UserService,
       LoginService,
       SensorsService,
+      CountryService,
       FormBuilder,
       {
           provide: HTTP_INTERCEPTORS,

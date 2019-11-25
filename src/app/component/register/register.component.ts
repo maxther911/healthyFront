@@ -1,26 +1,42 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {AlertService, LoginService, UserService} from '../../_services/index';
-import {User} from "../../_models/net/mrsistemas";
+import { AlertService, UserService, CountryService } from '../../_services/index';
+import { User, Country } from "../../_models/net/mrsistemas";
+import { Observable } from 'rxjs';
 
 @Component({
     moduleId: module.id.toString(),
     templateUrl: 'register.component.html'
 })
 
-export class RegisterComponent implements  OnInit{
+export class RegisterComponent implements OnInit {
     loading = false;
-    user: User;
+    private _user: User;
+    country: Observable<Country>
+    inCountry: string
 
     constructor(
         private router: Router,
         private userService: UserService,
-        private _login: LoginService,
+        private _country: CountryService,
         private alertService: AlertService) { }
 
-  create() {
+    loadCountry() {
+        console.log('cargando....' + this.inCountry)
+        this._country.getResource(this.user.birth_city.country.name).subscribe(
+            (res: any) => {
+                this.country = res.json()
+                console.info(this.country)
+            },
+            error => {
+                console.error('Error', error)
+            })
+    }
+
+    create() {
         this.loading = true;
+        console.info()
         this.userService.create(this.user)
             .subscribe(
                 data => {
@@ -33,5 +49,12 @@ export class RegisterComponent implements  OnInit{
                 });
     }
 
-  ngOnInit(): void {}
+    ngOnInit(): void { }
+
+    public get user(): User {
+        return this._user;
+    }
+    public set user(value: User) {
+        this._user = value;
+    }
 }

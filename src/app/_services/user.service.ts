@@ -12,7 +12,8 @@ export class UserService {
   public credentials: Observable<User>;
   private env = environment;
 
-  constructor(private _http: HttpClient, private http: HttpClient) {}
+  constructor(private _http: HttpClient, 
+    private http: HttpClient) {}
 
   getAll() {
     const httpOptions = {
@@ -64,6 +65,8 @@ export class UserService {
   create(user: User) {
     return this.http.post('/healthyClientServer/NonUser/create', user);
   }
+
+
 
   update(user: User) {
     return this.http.put('/api/users/' + user.id, user);

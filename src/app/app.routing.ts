@@ -1,4 +1,5 @@
 ﻿import { DashboardComponent } from './component/dashboard/index';
+import {AdminDashboardComponent} from "./component/admin-dashboard/index";
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './component/home/index';
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'admin', component: AdminDashboardComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent },

@@ -1,8 +1,10 @@
-export class Country {
-  private _id: number;
-  private _code: string;
-  private _name: string;
+import { City } from "./city";
 
+export class Country {
+  private _id: number
+  private _code: string
+  private _name: string
+  private _cities: City[];
 
   constructor(id: number, code: string, name: string) {
     this._id = id;
@@ -33,5 +35,12 @@ export class Country {
 
   set name(value: string) {
     this._name = value;
+  }
+
+  public get cities(): City[] {
+    return this._cities;
+  }
+  public set cities(value: City[]) {
+    this._cities = value;
   }
 }

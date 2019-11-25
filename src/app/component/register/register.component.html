@@ -12,57 +12,57 @@
               <form class="user" (ngSubmit)="f.form.valid && create()" #f="ngForm" novalidate>
 
                 <div class="form-group group">
-                  <input type="text" class="form-control form-control-user" id="userDni" [(ngModel)]="user.data.dni" required>
+                  <input type="text" class="form-control form-control-user" id="userDni" [(ngModel)]="user.dni" required>
                   <label class="ml-3 bg-white pr-5">Dni</label>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="userFirstName" [(ngModel)]="user.data.name" required>
+                    <input type="text" class="form-control form-control-user" id="userFirstName" [(ngModel)]="user.name" required>
                     <label class="ml-3">First Name</label>
                   </div>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="userLastName" [(ngModel)]="user.data.lastName" required>
+                    <input type="text" class="form-control form-control-user" id="userLastName" [(ngModel)]="user.lastName" required>
                     <label class="ml-3">LastName</label>
                   </div>
                 </div>
 
                 <div class="form-group group">
-                  <input type="email" class="form-control form-control-user" id="userEmail" [(ngModel)]="user.data.email" required>
+                  <input type="email" class="form-control form-control-user" id="userEmail" [(ngModel)]="user.email" required>
                   <label class="ml-3">Email Address</label>
                 </div>
 
                 <div class="form-group group">
-                  <input type="text" class="form-control form-control-user" id="userAddres" [(ngModel)]="user.data.address" required>
+                  <input type="text" class="form-control form-control-user" id="userAddres" [(ngModel)]="user.address" required>
                   <label class="ml-3">Address</label>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="userPhone" [(ngModel)]="user.data.phone" required>
+                    <input type="text" class="form-control form-control-user" id="userPhone" [(ngModel)]="user.phone" required>
                     <label class="ml-3">Phone Number</label>
                   </div>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="userCellphone" [(ngModel)]="user.data.cellphone" required>
+                    <input type="text" class="form-control form-control-user" id="userCellphone" [(ngModel)]="user.cellphone" required>
                     <label class="ml-3">CellPhone Number</label>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-4 mb-3 mb-sm-0">
-                    <input type="date" class="form-control form-control-user" id="userBirthDate" [(ngModel)]="user.data.birthDate" required>
+                    <input type="date" class="form-control form-control-user" id="userBirthDate" [(ngModel)]="user.birthDate" required>
                     <label class="ml-3">BirthDate</label>
                   </div>
 
                   <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-user" id="userBirthCountry" required>
+                    <input type="text" class="form-control form-control-user"  [(ngModel)]="user.birth_city.country.name" id="userBirthCountry" (keyup)="loadCountry" required>
                     <label class="ml-3">Country of birth</label>
                   </div>
 
                   <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-user" id="userBirthCity" [(ngModel)]="user.data.birth_city" required>
+                    <input type="text" class="form-control form-control-user" id="userBirthCity" [(ngModel)]="user.birth_city" required>
                     <label class="ml-3">place of birth</label>
                   </div>
 
@@ -91,10 +91,7 @@
 
                 </div>
 
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                  Register Account
-                </a>
-
+                <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
               </form>
               <hr>
               <div class="text-center">
