@@ -21,8 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
     if (request.clone().url.endsWith(this.env.checkToken)) {
       request = request.clone({
         setHeaders: {
-          Authorization: 'Basic ' + btoa(this.env.appConnect),
-          'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'
+          Authorization: 'Basic ' + btoa(this.env.appConnect)
         },
         url : request.url + '?token='+ currentUser.access_token
       });
@@ -36,8 +35,7 @@ export class JwtInterceptor implements HttpInterceptor {
       } else {
         request = request.clone({
           setHeaders: {
-            Authorization: 'Basic ' + btoa(this.env.appConnect),
-            'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+            Authorization: 'Basic ' + btoa(this.env.appConnect)
           }
         });
       }

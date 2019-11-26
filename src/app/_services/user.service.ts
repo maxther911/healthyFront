@@ -13,7 +13,7 @@ export class UserService {
   public credentials: Observable<User>;
   private env = environment;
 
-  constructor(private _http: HttpClient, 
+  constructor(private _http: HttpClient,
     private http: HttpClient) {}
 
   getAll() {
@@ -52,7 +52,7 @@ export class UserService {
   getById(id: number) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Content-type': 'application/json;charset=UTF-8',
         'Authorization': 'Bearer ' + Cookie.get('access_token')
       })
     };
@@ -64,7 +64,13 @@ export class UserService {
   }
 
   create(user: User) {
-    return this.http.post('/healthyClientServer/NonUser/create', user);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json;charset=UTF-8'
+      })
+    };
+
+    return this.http.post(this.env.clientDetailsURL + 'NonUser/save', user, httpOptions);
   }
 
 

@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'forgot', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'createApp', component: CreateAppComponent },
+  { path: 'create-app', component: CreateAppComponent },
   { path: 'error', component: ErrorComponent },
     // otherwise redirect to home
   { path: '**', redirectTo: 'home' }

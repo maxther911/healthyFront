@@ -66,14 +66,24 @@
                   <!-- Nuevo select pais -->
 
 
-                  <div class="combobox">
-                    <input type="text" [(ngModel)]="inputItem" (ngModelChange)="getFilteredList()"
-                      class="combobox-input" (keyup)="onKeyPress($event)" (blur)="toggleListDisplay(0)"
+                  <div class="col-sm-4">
+                    <input type="text" [(ngModel)]="inputItem.name" (ngModelChange)="getFilteredList()"
+                      class="form-control form-control-user" (keyup)="onKeyPress($event)" (blur)="toggleListDisplay(0)"
                       (focus)="toggleListDisplay(1)" placeholder="Select one..." [ngClass]="{'error': showError}" name="country">
                     <span *ngIf="showError" class="error-text"><i>Invalid Selection.</i></span>
                     <div class="combobox-options" *ngIf="!listHidden">
-                      <div *ngFor="let item of filteredList;let i = index" (click)="selectItem(i)"
-                        [ngClass]="{'selected': i===selectedIndex}">{{item}}</div>
+                      <div *ngFor="let item of filteredList;let i = index" (click)="selectItem(i)" [ngClass]="{'selected': i===selectedIndex}">{{item.name}}</div>
+                    </div>
+                  </div>
+
+                  <!-- Nuevo select city -->
+                  <div class="col-sm-4">
+                    <input type="text" [(ngModel)]="inputItemCity.name" (ngModelChange)="getFilteredListCity()"
+                           class="form-control form-control-user" (keyup)="onKeyPressCity($event)" (blur)="toggleListDisplayCity(0)"
+                           (focus)="toggleListDisplayCity(1)" placeholder="Select one..." [ngClass]="{'error': showErrorCity}" name="city">
+                    <span *ngIf="showErrorCity" class="error-text"><i>Invalid Selection.</i></span>
+                    <div class="combobox-options" *ngIf="!listHiddenCity">
+                      <div *ngFor="let item of filteredListCity;let i = index" (click)="selectItemCity(i)" [ngClass]="{'selected': i===selectedIndexCity}">{{item.name}}</div>
                     </div>
                   </div>
 

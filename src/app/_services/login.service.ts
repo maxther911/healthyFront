@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {AlertService} from "./alert.service";
 import {Observable, of} from "rxjs";
@@ -29,7 +29,13 @@ export class LoginService {
     params.append('grant_type', this.env.grandTypePassword);
     params.append('client_id', this.env.appId);
 
-    return this._http.post(this.env.authenticatedUri + this.env.token, params.toString());
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'
+      })
+    }
+
+    return this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions);
   }
 
   saveToken(token: { expires_in: number; access_token: string; }) {
