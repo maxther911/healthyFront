@@ -12,6 +12,7 @@ export const environment = {
   checkToken : 'oauth/check_token',
   userUri : 'users/',
   extraMethod : 'extra/',
+  getAll: 'getAll',
   userById: 'id/',
   userByToken : 'getUserByToken',
   third: 'third/',

@@ -19,14 +19,14 @@ export class UserService {
   getAll() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Content-type': 'application/json; charset=utf-8',
         'Authorization': 'Bearer ' + Cookie.get('access_token')
       })
     };
 
-    return this._http.get(environment.userUri + environment.extraMethod, httpOptions)
+    return this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.getAll, httpOptions)
       .subscribe((res: any) => {
-
+            console.log(res)
         },
         (error: any) => {
           error.json().error || 'Server error'

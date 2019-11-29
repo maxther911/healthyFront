@@ -23,11 +23,13 @@ import { TemperatureComponent } from './component/temperature/temperature.compon
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { CreateAppComponent } from './component/create-app/create-app.component';
+import { ErrorComponent } from './component/error/error.component';
+import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component';
+import { AutorizeAppComponent } from './component/autorize-app/autorize-app.component'
+
 import * as $ from "jquery";
-import * as bootstrap from "bootstrap";;
-import { ErrorComponent } from './component/error/error.component'
-;
-import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component'
+import * as bootstrap from "bootstrap";
+
 @NgModule({
     imports: [
       BrowserModule,
@@ -49,9 +51,10 @@ import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashb
       ForgotPasswordComponent,
       ProfileComponent,
       CreateAppComponent,
-      ErrorComponent
-,
-      AdminDashboardComponent    ],
+      ErrorComponent,
+      AdminDashboardComponent ,
+      AutorizeAppComponent
+    ],
   providers: [
       AuthGuard,
       AlertService,
