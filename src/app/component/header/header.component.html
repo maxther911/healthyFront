@@ -58,7 +58,7 @@
           <i class="fas fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
           Dashboard
         </a>
-        <a class="dropdown-item" [routerLink]="['/admin']">
+        <a class="dropdown-item" *ngIf="_user.scope" [routerLink]="['/admin']">
           <i class="fas fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
           Admin Dashboard
         </a>

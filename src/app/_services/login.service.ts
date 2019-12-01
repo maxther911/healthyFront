@@ -63,7 +63,6 @@ export class LoginService {
       this._router.navigate(['/login']);
     } else {
         this._user.credentials = JSON.parse(localStorage.getItem('dataUser'));
-        this._router.navigate(['/dashboard']);
     }
   }
 

@@ -6,15 +6,20 @@ import {Cookie} from 'ng2-cookies';
 import {User} from '../_models/index';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {Router} from "@angular/router";
 
 
 @Injectable()
 export class UserService {
   public credentials: Observable<User>;
+  public users: User[];
+  public scope: any;
   private env = environment;
 
   constructor(private _http: HttpClient,
-    private http: HttpClient) {}
+              private http: HttpClient,
+              private _router: Router) {
+  }
 
   getAll() {
     const httpOptions = {
@@ -25,12 +30,6 @@ export class UserService {
     };
 
     return this._http.get(this.env.clientDetailsURL + this.env.userUri + this.env.getAll, httpOptions)
-      .subscribe((res: any) => {
-            console.log(res)
-        },
-        (error: any) => {
-          error.json().error || 'Server error'
-        });
   }
 
   getResource() {
@@ -73,8 +72,6 @@ export class UserService {
     return this.http.post(this.env.clientDetailsURL + 'NonUser/save', user, httpOptions);
   }
 
-
-
   update(user: User) {
     return this.http.put('/api/users/' + user.id, user);
   }
@@ -83,12 +80,15 @@ export class UserService {
     return this.http.delete('/api/users/' + id);
   }
 
-  checkTokenValidity() : boolean{
+  checkTokenValidity(): boolean {
     this._http.get(this.env.authenticatedUri + this.env.checkToken)
       .subscribe((res: Response) => {
-        console.log(res);
+        this.scope = res;
+        console.log(this.scope.scope);
         return true;
       }, (error: any) => {
+        localStorage.removeItem('currentUser');
+        this._router.navigate(['/login']);
         console.error('error', error);
         return false;
       });

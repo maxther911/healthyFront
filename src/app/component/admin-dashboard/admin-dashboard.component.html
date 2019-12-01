@@ -1,14 +1,32 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="card mb-3 col-md-6">
+    <div class="col-xl-6 col-md-6 mb-6" *ngFor="let user of _user.users ; let index=index">
       <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src="..." class="card-img" alt="...">
+        <div class="col-md-5">
+          <!-- Pie Chart -->
+          <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                  <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                      <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                      <div class=""></div>
+                    </div>
+                  </div>
+                  <div id="pieChartContainer{{user.id}}" style="height: 93%; width: 100%; margin-left:auto;margin-right:auto;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-5">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title" >{{user.name}} {{user.lastName}} </h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
               content. This content is a little bit longer.</p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
