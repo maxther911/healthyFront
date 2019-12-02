@@ -18,7 +18,8 @@
                       <div class=""></div>
                     </div>
                   </div>
-                  <div id="pieChartContainer{{user.id}}" style="height: 93%; width: 100%; margin-left:auto;margin-right:auto;"></div>
+                  <div id="pieChartContainer{{user.id}}"
+                       style="height: 93%; width: 100%; margin-left:auto;margin-right:auto;"></div>
                 </div>
               </div>
             </div>
@@ -26,10 +27,17 @@
         </div>
         <div class="col-md-5">
           <div class="card-body">
-            <h5 class="card-title" >{{user.name}} {{user.lastName}} </h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
+            <h5 class="card-title">{{user.name}} {{user.lastName}} </h5>
+            <p class="card-text">Edad:  {{ user.edad}}</p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="col-12">
+              <div class="col-6">
+                <button type="button" class="btn btn-primary" (click)="showMore(user)">Show more</button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-primary" (click)="contact(user)">Contact</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

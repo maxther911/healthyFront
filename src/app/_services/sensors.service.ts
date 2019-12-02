@@ -20,14 +20,18 @@ export class SensorsService {
     private _router: Router, private _http: HttpClient, private _alert: AlertService, private _user: UserService) {
   }
 
-  getDataSensorsById(): void {
+  getDataSensorsById(id : string): void {
     // @ts-ignore
-    this._http.get(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + this._user.credentials.id/*, this._user.getAuthenticated()*/)
+    this._http.get(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + id/*, this._user.getAuthenticated()*/)
       .subscribe(
         (data: any) => {
           this._dataSensors = data;
+          if(data === null){
+            this._alert.error('usuario no tiene información médica o física registrada')
+          }
         },
         (error: any) => {
+          this._dataSensors = null;
           console.error(error.status);
           this._alert.error('La session ha caducado', false);
           this._router.navigate(['/login']);

@@ -3,6 +3,7 @@ import {SensorsService, UserService} from "../../_services";
 import * as $ from 'jquery';
 import * as CanvasJS from '../../../assets/js/canvasjs.min.js';
 import {environment} from "../../../environments/environment";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-temperature',
@@ -11,13 +12,16 @@ import {environment} from "../../../environments/environment";
 })
 export class TemperatureComponent implements OnInit {
   private env = environment;
-  temp : number = 0;
+  private id : string;
+  temp: number = 0;
 
-  constructor(private _sensors: SensorsService, private _user: UserService) {
+  constructor(private _sensors: SensorsService, private _user: UserService,
+              private route : ActivatedRoute) {
   }
 
   ngOnInit() {
-    this._sensors.getDataSensorsById();
+    this.id = this.route.snapshot.paramMap.get('id');
+    this._sensors.getDataSensorsById(this.id);
     let dataPoints = [];
     let dataTempsPoints = [];
     let dpsLength = 0;
@@ -75,10 +79,10 @@ export class TemperatureComponent implements OnInit {
     }
 
     // @ts-ignore
-    $.getJSON(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + this._user.credentials.id, function (data) {
+    $.getJSON(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + this.id, function (data) {
       $.each(data, function (key, value) {
         $.each(value.quantities, function (index, value) {
-          tempIndex = tempIndex +1;
+          tempIndex = tempIndex + 1;
           dataTempsPoints.push({
             x: tempIndex,
             y: value.value
@@ -87,7 +91,7 @@ export class TemperatureComponent implements OnInit {
         });
       });
       chartTemp.render();
-    });
+    })
 
     var pieChart = new CanvasJS.Chart("pieChartContainer", {
       animationEnabled: true,
@@ -106,7 +110,7 @@ export class TemperatureComponent implements OnInit {
           {y: 15, label: "Trash"},
           {y: 6, label: "Spam"}
         ],
-        click: function(e){
+        click: function (e) {
           window.location.replace("/data");
         },
       }]

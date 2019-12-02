@@ -1,9 +1,9 @@
-﻿import {Injectable} from '@angular/core';
+﻿import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Cookie} from 'ng2-cookies';
 
-import {User} from '../_models/index';
+import {User} from '../_models';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Router} from "@angular/router";
@@ -13,8 +13,10 @@ import {Router} from "@angular/router";
 export class UserService {
   public credentials: Observable<User>;
   public users: User[];
-  public scope: any;
+  public scope = 'hidden';
   private env = environment;
+
+  send = new EventEmitter();
 
   constructor(private _http: HttpClient,
               private http: HttpClient,
@@ -82,9 +84,14 @@ export class UserService {
 
   checkTokenValidity(): boolean {
     this._http.get(this.env.authenticatedUri + this.env.checkToken)
-      .subscribe((res: Response) => {
-        this.scope = res;
-        console.log(this.scope.scope);
+      .subscribe((res: any) => {
+        this.scope = '';
+        for (let scope of res.scope){
+          this.scope = this.scope + ' ' + scope;
+          console.log(this.scope);
+        }
+
+
         return true;
       }, (error: any) => {
         localStorage.removeItem('currentUser');
@@ -93,5 +100,9 @@ export class UserService {
         return false;
       });
     return false;
+  }
+
+  sendMessage(data: User) {
+    this.send.emit(data);
   }
 }

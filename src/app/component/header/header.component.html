@@ -54,11 +54,11 @@
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
           Profile
         </a>
-        <a class="dropdown-item" [routerLink]="['/dashboard']">
+        <a class="dropdown-item" [hidden]="!_user.scope.includes('role_user')" [routerLink]="['/dashboard', {'id' : data.id}]">
           <i class="fas fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
           Dashboard
         </a>
-        <a class="dropdown-item" *ngIf="_user.scope" [routerLink]="['/admin']">
+        <a class="dropdown-item" [hidden]="!_user.scope.includes('role_admin')" [routerLink]="['/admin']">
           <i class="fas fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
           Admin Dashboard
         </a>

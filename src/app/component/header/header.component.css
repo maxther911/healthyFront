@@ -4,7 +4,7 @@
     background-color: white;
     width: 64%;
     text-align: center;
-        border: 3px solid white; 
+        border: 3px solid white;
         background: #FFF;
         -webkit-transform: skew(-30deg);
         -moz-transform: skew(-30deg);
@@ -33,4 +33,16 @@
 
 .headers{
     background-color: darkorange;
+}
+
+.role_admin{
+  display: inline !important;
+}
+
+.role_user{
+  display: inline  !important;
+}
+
+.hidden{
+  display: none;
 }

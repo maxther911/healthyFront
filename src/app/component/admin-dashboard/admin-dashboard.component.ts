@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginService, UserService} from "../../_services";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AlertService, LoginService, UserService} from "../../_services";
 import * as CanvasJS from "../../../assets/js/canvasjs.min";
 import {User} from "../../_models";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,7 +13,13 @@ export class AdminDashboardComponent implements OnInit {
   n = 0;
   private users: User[];
 
-  constructor(private _user: UserService, private _login: LoginService) {
+  @Output() emit = new EventEmitter<User>();
+
+  constructor(
+    private _user: UserService,
+    private _login: LoginService,
+    private alert: AlertService,
+    private _router: Router) {
   }
 
   ngOnInit() {
@@ -64,9 +71,9 @@ export class AdminDashboardComponent implements OnInit {
         });
         try {
           pieChart.render();
-          console.log(o)
-          console.log(i)
-          i = i+ 1
+          console.log(o);
+          console.log(i);
+          i = i + 1
         } catch (Error) {
           console.warn(Error.message)
         }
@@ -75,4 +82,15 @@ export class AdminDashboardComponent implements OnInit {
   }
 
 
+  showMore(user: User) {
+    console.log('Selected User: ' + user.id)
+    this._router.navigate(['/dashboard', {id : user.id}]);
+  }
+
+  contact(user: User) {
+    if (!user.contact) {
+      this.alert.error("Paciente no cuenta con contacto registrado.")
+    }
+
+  }
 }
