@@ -29,6 +29,7 @@ import { AutorizeAppComponent } from './component/autorize-app/autorize-app.comp
 
 import * as $ from "jquery";
 import * as bootstrap from "bootstrap";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
     imports: [
@@ -63,6 +64,7 @@ import * as bootstrap from "bootstrap";
       LoginService,
       SensorsService,
       CountryService,
+      DatePipe,
       FormBuilder,
       {
           provide: HTTP_INTERCEPTORS,
