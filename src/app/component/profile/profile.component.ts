@@ -3,6 +3,7 @@ import {Country, User} from "../../_models";
 import {Router} from "@angular/router";
 import {AlertService, CountryService, UserService} from "../../_services";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,28 @@ export class ProfileComponent implements OnInit {
   inCountry: string;
   list: string[];
 
+  // two way binding for input text
+  inputItem = '';
+  // enable or disable visiblility of dropdown
+  listHidden = true;
+  showError = false;
+  selectedIndex = -1;
+
+  // the list to be shown after filtering
+  filteredList: any;
+
+  // Variables para la ciudad
+  // two way binding for input text
+  inputItemCity = '';
+  // enable or disable visiblility of dropdown
+  listHiddenCity = true;
+  showErrorCity = false;
+  selectedIndexCity = -1;
+
+  // the list to be shown after filtering
+  filteredListCity: any;
+  listCity: string[];
+
   constructor(
     private router: Router,
     private _user: UserService,
@@ -27,4 +50,7 @@ export class ProfileComponent implements OnInit {
     this.user = this._user.credentials
   }
 
+  update() {
+    return false;
+  }
 }
