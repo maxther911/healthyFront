@@ -1,12 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginService, UserService} from "../../_services";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AlertService, LoginService, UserService} from "../../_services";
+import {Router} from "@angular/router";
 import * as CanvasJS from "../../../assets/js/canvasjs.min";
 import {User} from "../../_models";
-import {DatePipe} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import * as $ from "jquery";
 
-class DataPoint{y: number; label: string}
+class DataPoint {
+  y: number;
+  label: string
+}
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -18,7 +22,13 @@ export class AdminDashboardComponent implements OnInit {
   private env = environment;
   private users: User[];
 
-  constructor(private _user: UserService, private _login: LoginService, private datePipe: DatePipe) {
+  @Output() emit = new EventEmitter<User>();
+
+  constructor(
+    private _user: UserService,
+    private _login: LoginService,
+    private alert: AlertService,
+    private _router: Router) {
   }
 
   ngOnInit() {
@@ -41,22 +51,10 @@ export class AdminDashboardComponent implements OnInit {
   async printPie() {
     await this.sleep(5000);
     console.log("Continue."); // Called 1 second after the first console.log
-    let dataTempsPoints = [];
 
     for (let o of this._user.users) {
       let i = 0;
       $(function () {
-        // @ts-ignore
-        $.getJSON('http://ec2-18-191-27-226.us-east-2.compute.amazonaws.com:8080/healthyDataService/third/sensors/getInformationById/' + o.id, function (data) {
-          $.each(data, function (key, value) {
-            $.each(value.quantities, function (index, value) {
-              dataTempsPoints.push({
-                x: value.group.description,
-                y: value.value
-              });
-            });
-          });
-        });
 
         var pieChart = new CanvasJS.Chart("pieChartContainer" + o.id, {
           animationEnabled: true,
@@ -67,7 +65,14 @@ export class AdminDashboardComponent implements OnInit {
             indexLabelFontSize: 17,
             indexLabel: "{label} - #percent%",
             toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-            dataPoints: dataTempsPoints,
+            dataPoints: [
+              {y: 67, label: "HTA"},
+              {y: 28, label: "Infarto"},
+              {y: 10, label: "TEP"},
+              {y: 7, label: "Normal"},
+              {y: 15, label: "Trash"},
+              {y: 6, label: "Spam"}
+            ],
             click: function (e) {
               window.location.replace("/data");
             },
@@ -83,21 +88,24 @@ export class AdminDashboardComponent implements OnInit {
   }
 
 
-  calculateAge(birthDate: Date) {
-    console.log(birthDate);
-    if (birthDate) {
-      var timeDiff = Math.abs(new Date(birthDate).getTime() - Date.now());
-      return Math.ceil((timeDiff / (1000 * 3600 * 24)) / 365);
+  showMore(user: User) {
+    console.log('Selected User: ' + user.id);
+    this._router.navigate(['/dashboard', {id: user.id}]);
+  }
+
+  contact(user: User) {
+    if (!user.contact) {
+      this.alert.error("Paciente no cuenta con contacto registrado.")
     }
   }
 
   calculateRisk(r: number) {
-      if(r > 0 && r <= 5 ){
-        return "Bajo"
-      }else if(r > 5 && r < 8 ){
-        return "Medio"
-      }else{
-        return "Alto"
-      }
+    if (r > 0 && r <= 5) {
+      return "Bajo"
+    } else if (r > 5 && r < 8) {
+      return "Medio"
+    } else {
+      return "Alto"
+    }
   }
 }

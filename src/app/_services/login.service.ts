@@ -33,16 +33,15 @@ export class LoginService {
       headers: new HttpHeaders({
         'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'
       })
-    }
+    };
 
     return this._http.post(this.env.authenticatedUri + this.env.token, params.toString(), httpOptions);
   }
 
-  saveToken(token: { expires_in: number; access_token: string; }) {
+  saveToken(token: { expires_in: number; access_token: string; id: string }) {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
     Cookie.set('access_token', token.access_token, expireDate);
-    console.info('save token', token)
-    this._router.navigate(['/dashboard']);
+    this._router.navigate(['/dashboard', {'id': token.id}]).then()
   }
 
   getResource(resourceUrl: string) {

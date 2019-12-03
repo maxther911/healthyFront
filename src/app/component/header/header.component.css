@@ -1,17 +1,17 @@
 .logo{
-    margin-left: 1rem;
-    padding: .5rem 1rem 0.8rem 1rem;
-    background-color: white;
-    width: 64%;
-    text-align: center;
-        border: 3px solid white; 
-        background: #FFF;
-        -webkit-transform: skew(-30deg);
-        -moz-transform: skew(-30deg);
-        -ms-transform: skew(-30deg);
-        -o-transform: skew(-30deg);
-        transform: skew(-30deg);
-   }
+  margin-left: 1rem;
+  padding: .5rem 1rem 0.8rem 1rem;
+  background-color: white;
+  width: 64%;
+  text-align: center;
+  border: 3px solid white;
+  background: #FFF;
+  -webkit-transform: skew(-30deg);
+  -moz-transform: skew(-30deg);
+  -ms-transform: skew(-30deg);
+  -o-transform: skew(-30deg);
+  transform: skew(-30deg);
+}
 
 .img{
     -webkit-transform: skew(30deg);
@@ -26,11 +26,23 @@
 
 }
 
-.sin-espacios{
-    padding: 0;
-    margin: 0;
+.sin-espacios {
+  padding: 0;
+  margin: 0;
 }
 
-.headers{
-    background-color: darkorange;
+.headers {
+  background-color: darkorange;
+}
+
+.role_admin {
+  display: inline !important;
+}
+
+.role_user {
+  display: inline !important;
+}
+
+.hidden {
+  display: none;
 }

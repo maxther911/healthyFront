@@ -1,8 +1,6 @@
-import {LoginService, UserService, AlertService, SensorsService} from './../../_services/index';
+import {LoginService, UserService} from '../../_services';
 import {Component, OnInit} from '@angular/core';
-// tslint:disable-next-line:import-blacklist
-
-
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   moduleId: module.id.toString(),
@@ -14,7 +12,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private _user: UserService,
-    private _login: LoginService) { }
+    private _login: LoginService,
+    private _route: Router,
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit() {
     this._login.checkCredentials();
