@@ -51,7 +51,8 @@ export class User {
   }
 
   get edad(): number {
-    var timeDiff = Math.abs(new Date(this.birthDate).getTime() - Date.now());
+    let timeDiff = Math.abs(new Date(this.birthDate).getTime() - Date.now());
+    console.log('Calculate Age: ', timeDiff);
     return Math.ceil((timeDiff / (1000 * 3600 * 24)) / 365);
   }
 

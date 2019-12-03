@@ -23,6 +23,7 @@ export class AdminDashboardComponent implements OnInit {
   private users: User[];
 
   @Output() emit = new EventEmitter<User>();
+  private diseasesDataPoint = [];
 
   constructor(
     private _user: UserService,
@@ -54,35 +55,37 @@ export class AdminDashboardComponent implements OnInit {
 
     for (let o of this._user.users) {
       let i = 0;
+      let diseasesDataPoint = [];
       $(function () {
 
-        var pieChart = new CanvasJS.Chart("pieChartContainer" + o.id, {
-          animationEnabled: true,
-          data: [{
-            type: "doughnut",
-            startAngle: 60,
-            //innerRadius: 60,
-            indexLabelFontSize: 17,
-            indexLabel: "{label} - #percent%",
-            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-            dataPoints: [
-              {y: 67, label: "HTA"},
-              {y: 28, label: "Infarto"},
-              {y: 10, label: "TEP"},
-              {y: 7, label: "Normal"},
-              {y: 15, label: "Trash"},
-              {y: 6, label: "Spam"}
-            ],
-            click: function (e) {
-              window.location.replace("/data");
-            },
-          }]
+        $.getJSON('http://localhost:9002/healthyDataService/' + 'users/' + 'get/' + o.id, function (data) {
+          $.each(data.diagnostic.diseases, function (key, value) {
+            diseasesDataPoint.push({
+              y: value.risk,
+              label: value.code
+            });
+          });
+          let pieChart = new CanvasJS.Chart("pieChartContainer" + o.id, {
+            animationEnabled: true,
+            data: [{
+              type: "doughnut",
+              startAngle: 60,
+              //innerRadius: 60,
+              indexLabelFontSize: 17,
+              indexLabel: "{label} - #percent%",
+              toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+              dataPoints: diseasesDataPoint,
+              click: function (e) {
+                window.location.replace("/data");
+              },
+            }]
+          });
+          try {
+            pieChart.render();
+          } catch (Error) {
+            console.warn(Error.message)
+          }
         });
-        try {
-          pieChart.render();
-        } catch (Error) {
-          console.warn(Error.message)
-        }
       });
     }
   }

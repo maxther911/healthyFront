@@ -29,12 +29,11 @@
             <h5 class="card-title">{{user.name}} {{user.lastName}} </h5>
             <p class="card-text">Edad:  {{ user.edad}}</p>
             <p class="card-text">Riesgo {{ calculateRisk(user.edad) }}</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            <div class="col-12">
-              <div class="col-6">
+            <div class="row">
+              <div class="col-8">
                 <button type="button" class="btn btn-primary" (click)="showMore(user)">Show more</button>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <button type="button" class="btn btn-primary" (click)="contact(user)">Contact</button>
               </div>
             </div>

@@ -8,6 +8,7 @@ import {UserService} from "./user.service";
 import {User} from "../_models/index";
 import DataSensors = SensorsData.DataSensors;
 import Data = Patient.User;
+import {Location} from '@angular/common';
 
 
 @Injectable()
@@ -19,7 +20,12 @@ export class SensorsService {
   private _patient: Data;
 
   constructor(
-    private _router: Router, private _http: HttpClient, private _alert: AlertService, private _user: UserService) {
+    private _router: Router,
+    private _http: HttpClient,
+    private _alert: AlertService,
+    private _user: UserService,
+    private _location: Location
+  ) {
   }
 
   getDataSensorsById(id: string): void {
@@ -52,10 +58,9 @@ export class SensorsService {
           }
         },
         (error: any) => {
-          this._patient = null;
-          console.error(error.status);
-          this._alert.error('La session ha caducado', false);
-          this._router.navigate(['/login']);
+            this._patient = null;
+            this._alert.error('usuario no tiene información médica o física registrada', true);
+            this._location.back();
         })
   }
 
@@ -65,6 +70,14 @@ export class SensorsService {
 
   set dataSensors(value: Array<SensorsData.DataSensors>) {
     this._dataSensors = value;
+  }
+
+  get patient(): Patient.User {
+    return this._patient;
+  }
+
+  set patient(value: Patient.User) {
+    this._patient = value;
   }
 
 }

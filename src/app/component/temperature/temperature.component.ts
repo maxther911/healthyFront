@@ -25,12 +25,17 @@ export class TemperatureComponent implements OnInit {
     this._sensors.getDiagnosticById(this.id);
     let dataPoints = [];
     let dataTempsPoints = [];
+    let ambientDataPoint = [];
+    let diseasesDataPoints = [];
+    let sisDataPoints = [];
+    let oximeterDataPoints = [];
+    let diasDataPoints = [];
     let dpsLength = 0;
-    let tempIndex = 0;
+    let ambientTemp = 0;
+    let htaTemp = 1;
+    let corporalTemp = 0;
+    let oximeterTemp = 0;
     let y = 0;
-    if (this._sensors.dataSensors && this._sensors.dataSensors.length > 0) {
-
-    }
 
     let chart = new CanvasJS.Chart("chartContainer", {
       exportEnabled: true,
@@ -48,19 +53,97 @@ export class TemperatureComponent implements OnInit {
       }]
     });
 
+    let ambChart = new CanvasJS.Chart("chartAmbientContainer", {
+      exportEnabled: true,
+      data: [{
+        type: "spline",
+        dataPoints: ambientDataPoint,
+      }]
+    });
 
-    $.getJSON("https://canvasjs.com/services/data/datapoints.php?xstart=1&ystart=25&length=20&type=json&callback=?", function (data) {
+    //TODO HTA Chart
+    let htaChart = new CanvasJS.Chart("htaChartContainer", {
+      animationEnabled: true,
+
+      axisX: {},
+      axisY: {
+        title: "HTA (in MMHg)",
+        includeZero: false,
+        suffix: " °MMHg"
+      },
+      legend: {
+        cursor: "pointer",
+        fontSize: 16,
+        itemclick: toggleDataSeries
+      },
+      toolTip: {
+        shared: true
+      },
+      data: [{
+        name: "Sistole",
+        type: "spline",
+        yValueFormatString: "#0.## °C",
+        showInLegend: true,
+        dataPoints: diasDataPoints
+      },
+        {
+          name: "Diastole",
+          type: "spline",
+          yValueFormatString: "#0.## °C",
+          showInLegend: true,
+          dataPoints: sisDataPoints
+        }]
+    });
+
+    function toggleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      } else {
+        e.dataSeries.visible = true;
+      }
+      htaChart.render();
+    }
+
+    // TODO fin HTA Chart
+
+    $.getJSON('http://localhost:9002/healthyDataService/third/sensors/getInformationById/' + this.id, function (data) {
       $.each(data, function (key, value) {
-        dataPoints.push({x: value[0], y: parseInt(value[1])});
+        $.each(value.quantities, function (index, value) {
+          switch (value.group.code) {
+            case 17:
+              htaTemp = htaTemp + 1;
+              let data = value.value.split('-');
+              sisDataPoints.push({x: htaTemp, y: parseInt(data[0])});
+              diasDataPoints.push({x: htaTemp, y: parseInt(data[1])});
+              break;
+            case 19:
+              ambientTemp = ambientTemp + 1;
+              ambientDataPoint.push({x: ambientTemp, y: parseInt(value.value)});
+              break;
+            case 20:
+              corporalTemp = corporalTemp + 1;
+              dataPoints.push({x: corporalTemp, y: parseInt(value.value)});
+              break;
+            case 21:
+              oximeterTemp = oximeterTemp + 1;
+              oximeterDataPoints
+              break;
+            default:
+              //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
+              break;
+          }
+        });
+
       });
-      dpsLength = dataPoints.length;
       chart.render();
-      updateChart();
+      ambChart.render();
+      htaChart.render();
+      chartTemp.render();
     });
 
     function updateChart() {
 
-      $.getJSON("https://canvasjs.com/services/data/datapoints.php?xstart=" + (dpsLength + 1) + "&ystart=" + (dataPoints[dataPoints.length - 1].y) + "&length=1&type=json&callback=?", function (data) {
+      $.getJSON('http://localhost:9002/healthyDataService/third/sensors/getInformationById/' + this.id, function (data) {
         $.each(data, function (key, value) {
           dataPoints.push({
             x: parseInt(value[0]),
@@ -74,27 +157,12 @@ export class TemperatureComponent implements OnInit {
         }
         chart.render();
         setTimeout(function () {
-          updateChart()
+          //updateChart()
         }, 5000);
       });
     }
 
-    // @ts-ignore
-    $.getJSON(this.env.sensorsDataUrl + this.env.third + this.env.sensors + this.env.getInformationById + this.id, function (data) {
-      $.each(data, function (key, value) {
-        $.each(value.quantities, function (index, value) {
-          tempIndex = tempIndex + 1;
-          dataTempsPoints.push({
-            x: tempIndex,
-            y: value.value
-          });
-          dpsLength++;
-        });
-      });
-      chartTemp.render();
-    });
-
-    var pieChart = new CanvasJS.Chart("pieChartContainer", {
+    let pieChart = new CanvasJS.Chart("pieChartContainer", {
       animationEnabled: true,
       data: [{
         type: "doughnut",
@@ -103,19 +171,25 @@ export class TemperatureComponent implements OnInit {
         indexLabelFontSize: 17,
         indexLabel: "{label} - #percent%",
         toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-        dataPoints: [
-          {y: 67, label: "HTA"},
-          {y: 28, label: "Infarto"},
-          {y: 10, label: "TEP"},
-          {y: 7, label: "Normal"},
-          {y: 15, label: "Trash"},
-          {y: 6, label: "Spam"}
-        ],
+        dataPoints: diseasesDataPoints,
         click: function (e) {
           window.location.replace("/data");
         },
       }]
     });
-    pieChart.render();
+
+    $.getJSON(this.env.sensorsDataUrl + this.env.userUri + this.env.get + this.id, function (data) {
+      $.each(data.diagnostic.diseases, function (key, value) {
+        diseasesDataPoints.push({
+          y: value.risk,
+          label: value.code
+        });
+      });
+      pieChart.render();
+    });
+
+
   }
+
+
 }
