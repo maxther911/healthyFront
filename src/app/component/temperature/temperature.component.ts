@@ -35,7 +35,6 @@ export class TemperatureComponent implements OnInit {
     let htaTemp = 1;
     let corporalTemp = 0;
     let oximeterTemp = 0;
-    let y = 0;
 
     let chart = new CanvasJS.Chart("chartContainer", {
       exportEnabled: true,
@@ -126,7 +125,7 @@ export class TemperatureComponent implements OnInit {
               break;
             case 21:
               oximeterTemp = oximeterTemp + 1;
-              oximeterDataPoints
+              oximeterDataPoints .push({x: corporalTemp, y: parseInt(value.value)});
               break;
             default:
               //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
