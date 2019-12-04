@@ -25,7 +25,6 @@ pipeline {
                 sh 'chmod +x ./scripts/deliver.sh'
                 sh 'chmod +x ./scripts/kill.sh'
                 sh './scripts/deliver.sh'
-                sh 'cp -r /var/jenkins_home/workspace/HealthyFlontendService/dist/app/*  /home/ubuntu/docker-nginx/html/'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './scripts/kill.sh'
             }
