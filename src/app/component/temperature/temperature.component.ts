@@ -29,10 +29,12 @@ export class TemperatureComponent implements OnInit {
     let diseasesDataPoints = [];
     let sisDataPoints = [];
     let oximeterDataPoints = [];
+    let freqDataPoints = [];
     let diasDataPoints = [];
     let dpsLength = 0;
     let ambientTemp = 0;
     let htaTemp = 1;
+    let freqTemp = 1;
     let corporalTemp = 0;
     let oximeterTemp = 0;
 
@@ -57,6 +59,22 @@ export class TemperatureComponent implements OnInit {
       data: [{
         type: "spline",
         dataPoints: ambientDataPoint,
+      }]
+    });
+
+    let OxyChart = new CanvasJS.Chart("chartOxiContainer", {
+      exportEnabled: true,
+      data: [{
+        type: "spline",
+        dataPoints: oximeterDataPoints,
+      }]
+    });
+
+    let freqChart = new CanvasJS.Chart("chartFreqContainer", {
+      exportEnabled: true,
+      data: [{
+        type: "spline",
+        dataPoints: freqDataPoints,
       }]
     });
 
@@ -125,7 +143,11 @@ export class TemperatureComponent implements OnInit {
               break;
             case 21:
               oximeterTemp = oximeterTemp + 1;
-              oximeterDataPoints .push({x: corporalTemp, y: parseInt(value.value)});
+              oximeterDataPoints.push({x: oximeterTemp, y: parseInt(value.value)});
+              break;
+            case 22:
+              freqTemp = freqTemp + 1;
+              freqDataPoints.push({x: freqTemp, y: parseInt(value.value)});
               break;
             default:
               //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
@@ -135,9 +157,10 @@ export class TemperatureComponent implements OnInit {
 
       });
       chart.render();
+      OxyChart.render();
       ambChart.render();
       htaChart.render();
-      chartTemp.render();
+      freqChart.render();
     });
 
     function updateChart() {
